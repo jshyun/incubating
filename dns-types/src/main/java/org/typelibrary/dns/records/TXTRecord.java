@@ -19,22 +19,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.typelibrary.dns.BinaryString;
+import org.typelibrary.binarystrings.ByteString;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
 public final class TXTRecord extends Record {
 
-    private final List<BinaryString> text;
+    private final List<ByteString> text;
 
-    public TXTRecord(String name, int recordClass, long timeToLive, List<BinaryString> text) {
+    public TXTRecord(String name, int recordClass, long timeToLive, List<ByteString> text) {
         super(name, RecordType.TXT, recordClass, timeToLive);
         if (text == null)
             throw new IllegalArgumentException("Text cannot be null");
-        this.text = Collections.unmodifiableList(new ArrayList<BinaryString>(text));
+        this.text = Collections.unmodifiableList(new ArrayList<ByteString>(text));
     }
 
-    public final List<BinaryString> getText() {
+    public final List<ByteString> getText() {
         return text;
     }
 

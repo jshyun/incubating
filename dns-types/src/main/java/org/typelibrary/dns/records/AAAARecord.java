@@ -54,10 +54,16 @@ public final class AAAARecord extends Record {
         return ByteBuffer.wrap(address).asReadOnlyBuffer();
     }
 
-    public final void copyAddress(byte[] buffer, int offset) {
+    public final int copyAddress(byte[] buffer, int offset) {
         System.arraycopy(address, 0, buffer, offset, address.length);
+        return 16;
     }
 
+    public final int copyAddress(ByteBuffer buffer) {
+        buffer.put(address);
+        return 16;
+    }
+    
     public final InetAddress toInetAddress(String hostname) {
         try {
             return InetAddress.getByAddress(hostname, address);

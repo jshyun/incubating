@@ -56,10 +56,16 @@ public final class RawRecord extends Record {
         return ByteBuffer.wrap(data).asReadOnlyBuffer();
     }
 
-    public final void copyData(byte[] buffer, int offset) {
+    public final int copyData(byte[] buffer, int offset) {
         System.arraycopy(data, 0, buffer, offset, data.length);
+        return data.length;
     }
 
+    public final int copyData(ByteBuffer buffer) {
+        buffer.put(data);
+        return data.length;
+    }
+    
     public final String toString() {
         return super.toString() + ", len=" + data.length;
     }
