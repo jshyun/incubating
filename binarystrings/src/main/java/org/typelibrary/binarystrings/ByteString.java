@@ -1,4 +1,3 @@
-package org.typelibrary.binarystrings;
 /*
  * Copyright (C) 2015 John Hyun
  *
@@ -14,9 +13,10 @@ package org.typelibrary.binarystrings;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+package org.typelibrary.binarystrings;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 public final class ByteString {
@@ -26,57 +26,74 @@ public final class ByteString {
     private final byte[] string;
     private final int offset;
     private final int length;
+    private int hashCodeCache = 0;
 
-    public ByteString(byte[] string) {
-        this(string, 0, string.length);
+    public ByteString(byte[] source) {
+        this(source, 0, source.length);
     }
     
-    public ByteString(byte[] string, int offset, int length) {
-        if (string == null) throw new IllegalArgumentException("String cannot be null");
+    public ByteString(byte[] source, int offset, int length) {
+        if (source == null) throw new IllegalArgumentException("Source cannot be null");
         this.string = new byte[length];
         this.offset = 0;
         this.length = length;
-        System.arraycopy(string, offset, this.string, 0, length);
+        System.arraycopy(source, offset, this.string, 0, length);
     }
 
-    public ByteString(ByteBuffer src) {
-        if (src == null) throw new IllegalArgumentException("Src cannot be null");
+    public ByteString(ByteBuffer source) {
+        if (source == null) throw new IllegalArgumentException("Source cannot be null");
         this.offset = 0;
-        this.length = src.remaining();
+        this.length = source.remaining();
         this.string = new byte[this.length];
-        if (src.hasArray()) {
-            byte[] array = src.array();
-            System.arraycopy(array, src.arrayOffset(), this.string, 0, this.length);
+        if (source.hasArray()) {
+            byte[] array = source.array();
+            System.arraycopy(array, source.arrayOffset() + source.position(), this.string, 0, this.length);
         } else {
-            src.get(string, 0, this.length);
+            source.get(string, 0, this.length);
         }
+        source.position(source.position() + this.length);
+    }
+
+    public ByteString(ByteBuffer source, int length) {
+        if (source == null) throw new IllegalArgumentException("Source cannot be null");
+        if (length > source.remaining()) throw new IllegalArgumentException("Remaining cannot be > length.");
+        this.offset = 0;
+        this.length = length;
+        this.string = new byte[length];
+        if (source.hasArray()) {
+            byte[] array = source.array();
+            System.arraycopy(array, source.arrayOffset() + source.position(), this.string, 0, length);
+        } else {
+            source.get(string, 0, this.length);
+        }
+        source.position(source.position() + length);
     }
     
-    public ByteString(ByteString string) {
-        if (string == null) throw new IllegalArgumentException("String cannot be null");
+    public ByteString(ByteString source) {
+        if (source == null) throw new IllegalArgumentException("Source cannot be null");
         // It's assumed you want to make a deep copy
-        this.string = new byte[string.length];
+        this.string = new byte[source.length];
         this.offset = 0;
-        this.length = string.length;
-        System.arraycopy(string.string, string.offset, this.string, 0, string.length);
+        this.length = source.length;
+        System.arraycopy(source.string, source.offset, this.string, 0, source.length);
     }
 
-    public ByteString(ByteString string, int offset, int length) {
-        if (string == null) throw new IllegalArgumentException("String cannot be null");
+    public ByteString(ByteString source, int offset, int length) {
+        if (source == null) throw new IllegalArgumentException("Source cannot be null");
         // It's assumed you want to make a deep copy
         this.string = new byte[length];
         this.offset = 0;
         this.length = length;
         if (length > 0)
-            System.arraycopy(string.string, offset, this.string, 0, length);
+            System.arraycopy(source.string, offset, this.string, 0, length);
     }
     
-    private ByteString(int offset, int length, byte[] string) {
-        if (string == null) throw new IllegalArgumentException("String cannot be null");
+    private ByteString(int offset, int length, byte[] source) {
+        if (source == null) throw new IllegalArgumentException("Source cannot be null");
         if (offset < 0) throw new IllegalArgumentException("Offset cannot be < 0");
-        if (offset > string.length) throw new IllegalArgumentException("Offset cannot be > length");
+        if (offset > source.length) throw new IllegalArgumentException("Offset cannot be > length");
         if (length < 0) throw new IllegalArgumentException("Length cannot be < 0");
-        this.string = string;
+        this.string = source;
         this.offset = offset;
         this.length = length;
     }
@@ -152,6 +169,12 @@ public final class ByteString {
         buffer.put(string, offset, length);
         return length;
     }
+
+    public final void forEach(ByteConsumer consumer) {
+        for (byte b : string) {
+            consumer.accept(b);
+        }
+    }
     
     public final boolean equals(Object object) {
         if (!(object instanceof ByteString))
@@ -161,22 +184,27 @@ public final class ByteString {
             return true;
         if (this.length != string.length)
             return false;
-        int length = this.length;
-        for (int i=offset, j=string.offset, k=0; k<length; ++i, ++j, ++k) {
-            if(this.string[i] != string.string[j])
+        int localLength = this.length;
+        byte[] localThisString = this.string;
+        byte[] localThatString = string.string;
+        for (int i=offset, j=string.offset, k=0; k<localLength; ++i, ++j, ++k) {
+            if(localThisString[i] != localThatString[j])
                 return false;
         }
         return true;
     }
     
     public final int hashCode() {
-        final int prime = 37;
-        int result = 1;
-        int endIndex = this.offset + this.length;
-        for (int i=offset; i<endIndex; ++i) {
-            result = prime * result + (int) string[i];
+        int localHashCode = hashCodeCache;
+        if (localHashCode == 0) {
+            int endIndex = this.offset + this.length;
+            byte[] localThisString = this.string;
+            for (int i=offset; i<endIndex; ++i) {
+                localHashCode = 37 * localHashCode + (int) localThisString[i];
+            }
+            hashCodeCache = localHashCode;
         }
-        return result;
+        return localHashCode;
     }
 
     public final int indexOf(byte value) {
@@ -185,8 +213,9 @@ public final class ByteString {
     
     public final int indexOf(byte value, int fromIndex) {
         int endIndex = this.offset + this.length;
+        byte[] localThisString = this.string;
         for (int i=offset; i<endIndex; ++i) {
-            if (string[i] == value)
+            if (localThisString[i] == value)
                 return i - offset;
         }
         return -1;
@@ -220,8 +249,9 @@ public final class ByteString {
     
     public final int lastIndexOf(byte value, int fromIndex) {
         int i = offset + ((fromIndex >= length) ? length - 1 : fromIndex);
+        byte[] localThisString = this.string;
         for (; i>=offset; --i) {
-            if (string[i] == value)
+            if (localThisString[i] == value)
                 return i - offset;
         }
         return -1;
@@ -318,6 +348,14 @@ public final class ByteString {
     public final String toString() {
         int hashCode = hashCode();
         return "[len="+length+", hashCode="+hashCode+"]";
+    }
+
+    public final String toString(Charset charset) {
+        return new String(string, offset, length, charset);
+    }
+
+    public final String toArrayString() {
+        return Arrays.toString(string);
     }
     
     public final ByteString compact() {

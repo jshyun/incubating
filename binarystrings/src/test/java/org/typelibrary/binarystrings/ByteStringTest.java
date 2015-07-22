@@ -1,6 +1,7 @@
 package org.typelibrary.binarystrings;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,11 +31,11 @@ public class ByteStringTest {
     protected final byte[] B321 = new byte[] { 3, 2, 1 };
     protected final byte[] B1TO9 = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     protected final byte[] B4TO9 = new byte[] { 4, 5, 6, 7, 8, 9 };
+
+    protected ByteString string;
     
     @Test
     public void testConstructors() {
-        
-        ByteString string;
         
         string = new ByteString(B1TO9);
         Assert.assertEquals(false, string.isEmpty());
@@ -144,8 +145,6 @@ public class ByteStringTest {
     @Test
     public void testConstructorsZeroLength() {
         
-        ByteString string;
-        
         string = new ByteString(B);
         Assert.assertEquals(true, string.isEmpty());
         Assert.assertEquals(0, string.length());
@@ -233,8 +232,6 @@ public class ByteStringTest {
     @Test
     public void testByteAt() {
 
-        ByteString string;
-        
         string = ByteString.EMPTY_STRING;
         assertByteAtThrows(string, 0);
         assertByteAtThrows(string, 1);
@@ -255,8 +252,6 @@ public class ByteStringTest {
     @Test
     public void testConcat() {
 
-        ByteString string;
-        
         string = STR1.concat(STR2).concat(STR3);
         Assert.assertEquals(false, string.isEmpty());
         Assert.assertEquals(3, string.length());
@@ -309,12 +304,16 @@ public class ByteStringTest {
         Assert.assertTrue(string == string.toBinaryString());
         Assert.assertTrue(string == string.compact());
 
+        string = ByteString.EMPTY_STRING;
+        Assert.assertTrue(string == string.concat(ByteString.EMPTY_STRING));
+        Assert.assertTrue(string == string.concat(ByteString.EMPTY_STRING,ByteString.EMPTY_STRING));
+        Assert.assertTrue(string == string.concat(new byte[0]));
+        Assert.assertTrue(string == string.concat(B1TO9, 5, 0));
+
     }
 
     @Test
     public void testContains() {
-
-        ByteString string;
 
         string = ByteString.EMPTY_STRING;
         Assert.assertEquals(true, string.contains(ByteString.EMPTY_STRING));
@@ -363,8 +362,6 @@ public class ByteStringTest {
 
     @Test
     public void testIndexOf() {
-
-        ByteString string;
 
         string = ByteString.EMPTY_STRING;
         Assert.assertEquals(0, string.indexOf(ByteString.EMPTY_STRING));
@@ -419,8 +416,6 @@ public class ByteStringTest {
     @Test
     public void testStartsWith() {
 
-        ByteString string;
-
         string = ByteString.EMPTY_STRING;
         Assert.assertEquals(true, string.startsWith(ByteString.EMPTY_STRING));
         Assert.assertEquals(false, string.startsWith(STR0));
@@ -472,8 +467,6 @@ public class ByteStringTest {
     @Test
     public void testEndsWith() {
 
-        ByteString string;
-
         string = ByteString.EMPTY_STRING;
         Assert.assertEquals(true, string.endsWith(ByteString.EMPTY_STRING));
         Assert.assertEquals(false, string.endsWith(STR0));
@@ -523,10 +516,6 @@ public class ByteStringTest {
     @Test
     public void testLastIndexOf() {
 
-        ByteString string;
-
-        System.out.println("123456789".lastIndexOf("", 8));
-        
         string = ByteString.EMPTY_STRING;
         Assert.assertEquals(0, string.lastIndexOf(ByteString.EMPTY_STRING));
         Assert.assertEquals(-1, string.lastIndexOf(STR0));
@@ -577,17 +566,57 @@ public class ByteStringTest {
         Assert.assertEquals(-1, string.lastIndexOf(B4TO9, 3, 1, 5));
 
     }
-    
+
     @Test
     public void testSubstring() {
         
-        ByteString string;
-        
         string = STR1TO9.substring(3);
+        Assert.assertEquals(false, string.isEmpty());
         Assert.assertEquals(STR4TO9, string);
         Assert.assertEquals(STR4TO9.hashCode(), string.hashCode());
         Assert.assertEquals(9, string.footprint());
    
+    }
+
+    @Test
+    public void testToByteArray() {
+        
+        string = STR1;
+        Assert.assertArrayEquals(B1, string.toByteArray());
+
+        string = STR1TO9;
+        Assert.assertArrayEquals(B1TO9, string.toByteArray());
+        
+    }
+
+    @Test
+    public void testToByteBuffer() {
+        
+        ByteBuffer buffer;
+        
+        buffer = STR1.toByteBuffer();
+        Assert.assertEquals(1, buffer.remaining());
+        Assert.assertEquals(0, buffer.position());
+        Assert.assertEquals(1, buffer.limit());
+        Assert.assertEquals(true, buffer.isReadOnly());
+        Assert.assertEquals(false, buffer.hasArray());
+
+        buffer = STR1TO9.toByteBuffer();
+        Assert.assertEquals(9, buffer.remaining());
+        Assert.assertEquals(0, buffer.position());
+        Assert.assertEquals(9, buffer.limit());
+        Assert.assertEquals(true, buffer.isReadOnly());
+        Assert.assertEquals(false, buffer.hasArray());
+
+    }
+    
+    @Test
+    public void testToString() {
+
+        Charset charset = Charset.forName("ASCII");
+        string = new ByteString("Hello World".getBytes(charset));
+        Assert.assertEquals("Hello World", string.toString(charset));
+
     }
     
     protected void assertByteAt(ByteString string, byte[] bytes) {
