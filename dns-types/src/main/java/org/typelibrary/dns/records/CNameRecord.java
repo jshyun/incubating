@@ -15,21 +15,22 @@
  */
 package org.typelibrary.dns.records;
 
-import org.typelibrary.dns.RecordType;
+import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
+import org.typelibrary.dns.RecordType;
 
 public final class CNameRecord extends Record {
 
-    private final String cname;
+    private final Name cname;
 
-    public CNameRecord(String name, int recordClass, long timeToLive, String cname) {
+    public CNameRecord(Name name, int recordClass, long timeToLive, Name cname) {
         super(name, RecordType.CNAME, recordClass, timeToLive);
         if (cname == null)
             throw new IllegalArgumentException("CName cannot be null");
         this.cname = cname;
     }
 
-    public final String getCName() {
+    public final Name getCName() {
         return cname;
     }
 

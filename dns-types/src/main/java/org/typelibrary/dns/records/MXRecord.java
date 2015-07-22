@@ -15,15 +15,16 @@
  */
 package org.typelibrary.dns.records;
 
-import org.typelibrary.dns.RecordType;
+import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
+import org.typelibrary.dns.RecordType;
 
 public final class MXRecord extends Record {
 
     private final int preference;
-    private final String exchange;
+    private final Name exchange;
 
-    public MXRecord(String name, int recordClass, long timeToLive, int preference, String exchange) {
+    public MXRecord(Name name, int recordClass, long timeToLive, int preference, Name exchange) {
         super(name, RecordType.MX, recordClass, timeToLive);
         if (preference >> 16 != 0)
             throw new IllegalArgumentException("Preference must be a 16-bit value. class=" + preference);
@@ -37,7 +38,7 @@ public final class MXRecord extends Record {
         return preference;
     }
 
-    public final String getExchange() {
+    public final Name getExchange() {
         return exchange;
     }
 

@@ -15,21 +15,22 @@
  */
 package org.typelibrary.dns.records;
 
-import org.typelibrary.dns.RecordType;
+import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
+import org.typelibrary.dns.RecordType;
 
 public final class SOARecord extends Record {
 
-    private final String masterName;
-    private final String responsibleName;
+    private final Name masterName;
+    private final Name responsibleName;
     private final long serialNumber;
     private final long refreshInterval;
     private final long retryInterval;
     private final long expireInterval;
     private final long minimum;
 
-    public SOARecord(String name, int recordClass, long timeToLive, String masterName,
-            String responsibleName, long serialNumber, long refreshInterval, long retryInterval,
+    public SOARecord(Name name, int recordClass, long timeToLive, Name masterName,
+            Name responsibleName, long serialNumber, long refreshInterval, long retryInterval,
             long expireInterval, long minimum) {
         super(name, RecordType.SOA, recordClass, timeToLive);
         if (masterName == null)
@@ -55,11 +56,11 @@ public final class SOARecord extends Record {
         this.minimum = minimum;
     }
 
-    public final String getMasterName() {
+    public final Name getMasterName() {
         return masterName;
     }
 
-    public final String getResponsibleName() {
+    public final Name getResponsibleName() {
         return responsibleName;
     }
 

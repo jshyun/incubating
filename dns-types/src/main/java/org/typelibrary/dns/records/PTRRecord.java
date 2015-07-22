@@ -15,21 +15,22 @@
  */
 package org.typelibrary.dns.records;
 
-import org.typelibrary.dns.RecordType;
+import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
+import org.typelibrary.dns.RecordType;
 
 public final class PTRRecord extends Record {
 
-    private final String domainName;
+    private final Name domainName;
 
-    public PTRRecord(String name, int recordClass, long timeToLive, String domainName) {
+    public PTRRecord(Name name, int recordClass, long timeToLive, Name domainName) {
         super(name, RecordType.PTR, recordClass, timeToLive);
         if (domainName == null)
             throw new IllegalArgumentException("Domain name cannot be null");
         this.domainName = domainName;
     }
 
-    public final String getDomainName() {
+    public final Name getDomainName() {
         return domainName;
     }
 

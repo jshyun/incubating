@@ -17,65 +17,53 @@ package org.typelibrary.dns.records;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
 
-import org.typelibrary.dns.RecordType;
+import org.typelibrary.binarystrings.ByteString;
+import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
+import org.typelibrary.dns.RecordType;
+import org.typelibrary.dns.records.Utils.IP6Formatter;
 
 public final class AAAARecord extends Record {
 
-    private final byte[] address;
+    private final ByteString address;
+    private String toStringCache;
 
-    public AAAARecord(String name, int recordClass, long timeToLive, byte[] address) {
-        this(name, recordClass, timeToLive, address, 0);
-    }
-
-    public AAAARecord(String name, int recordClass, long timeToLive, byte[] address, int offset) {
+    public AAAARecord(Name name, int recordClass, long timeToLive, ByteString address) {
         super(name, RecordType.AAAA, recordClass, timeToLive);
         if (address == null) throw new IllegalArgumentException("Address cannot be null");
-        if (address.length < 16) throw new IllegalArgumentException("Address must be at least 16 bytes long. len=" + address.length);
-        this.address = new byte[16];
-        System.arraycopy(address, offset, this.address, 0, 16);
+        if (address.length() != 16) throw new IllegalArgumentException("Address must be 16 bytes long. len=" + address.length());
+        this.address = address;
     }
 
-    public AAAARecord(String name, int recordClass, long timeToLive, ByteBuffer address) {
-        super(name, RecordType.AAAA, recordClass, timeToLive);
-        if (address == null) throw new IllegalArgumentException("Src cannot be null");
-        this.address = new byte[16];
-        address.get(this.address, 0, 16);
+    public final ByteString getAddress() {
+        return address;
     }
 
-    public final byte[] getAddress() {
-        return Arrays.copyOf(address, address.length);
-    }
-
-    public final ByteBuffer getAddressAsByteBuffer() {
-        return ByteBuffer.wrap(address).asReadOnlyBuffer();
-    }
-
-    public final int copyAddress(byte[] buffer, int offset) {
-        System.arraycopy(address, 0, buffer, offset, address.length);
-        return 16;
-    }
-
-    public final int copyAddress(ByteBuffer buffer) {
-        buffer.put(address);
-        return 16;
-    }
-    
-    public final InetAddress toInetAddress(String hostname) {
+    public final InetAddress toInetAddress(Name hostname) {
         try {
-            return InetAddress.getByAddress(hostname, address);
+            return InetAddress.getByAddress(hostname.toString(), address.toByteArray());
         } catch (UnknownHostException e) {
             // Should never happen since we check address length in constructor
             throw new IllegalStateException(
                     "Unexpected error creating Inet4Address from: hostname=" + hostname
-                            + ", address=" + Arrays.toString(address));
+                            + ", address=" + address.toArrayString());
         }
     }
     
     public final String toString() {
-        return super.toString() + ", address=[" + Utils.toGroupedHexArray(address, 2, ':') + "]";
+
+        String localString = toStringCache;
+        
+        if (localString == null) {
+            IP6Formatter formatter = new IP6Formatter();
+            address.forEach(formatter);
+            String tempString = new String(formatter.address);
+            localString = super.toString() + ", address=[" + tempString + "]";
+            toStringCache = localString;
+        }
+        
+        return localString;
+
     }
 }

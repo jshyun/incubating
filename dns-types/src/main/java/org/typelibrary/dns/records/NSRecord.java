@@ -15,21 +15,22 @@
  */
 package org.typelibrary.dns.records;
 
-import org.typelibrary.dns.RecordType;
+import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
+import org.typelibrary.dns.RecordType;
 
 public final class NSRecord extends Record {
 
-    private final String nameServer;
+    private final Name nameServer;
 
-    public NSRecord(String name, int recordClass, long timeToLive, String nameServer) {
+    public NSRecord(Name name, int recordClass, long timeToLive, Name nameServer) {
         super(name, RecordType.NS, recordClass, timeToLive);
         if (nameServer== null)
             throw new IllegalArgumentException("Name server cannot be null");
         this.nameServer = nameServer;
     }
 
-    public final String getNameServer() {
+    public final Name getNameServer() {
         return nameServer;
     }
 

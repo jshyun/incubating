@@ -17,11 +17,11 @@ package org.typelibrary.dns;
 
 public final class Question {
 
-    private final String qname;
+    private final Name qname;
     private final RecordType questionType;
     private final QClass questionClass;
 
-    public Question(String qname, RecordType questionType, QClass questionClass) {
+    public Question(Name qname, RecordType questionType, QClass questionClass) {
         if (qname == null)
             throw new IllegalArgumentException("Qname cannot be null");
         if (questionType == null)
@@ -33,7 +33,7 @@ public final class Question {
         this.questionClass = questionClass;
     }
 
-    public final String getQname() {
+    public final Name getQname() {
         return qname;
     }
 

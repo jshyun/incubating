@@ -16,6 +16,7 @@
 package org.typelibrary.dns.records;
 
 import org.typelibrary.binarystrings.ByteString;
+import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
@@ -24,7 +25,7 @@ public class HINFORecord extends Record {
     private final ByteString cpu;
     private final ByteString os;
 
-    public HINFORecord(String name, int recordClass, long timeToLive, ByteString cpu, ByteString os) {
+    public HINFORecord(Name name, int recordClass, long timeToLive, ByteString cpu, ByteString os) {
         super(name, RecordType.CNAME, recordClass, timeToLive);
         if (cpu == null)
             throw new IllegalArgumentException("CPU cannot be null");

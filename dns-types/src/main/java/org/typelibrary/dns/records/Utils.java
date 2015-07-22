@@ -15,6 +15,8 @@
  */
 package org.typelibrary.dns.records;
 
+import org.typelibrary.binarystrings.ByteConsumer;
+
 final class Utils {
 
     private Utils() {}
@@ -46,6 +48,45 @@ final class Utils {
         }
         
         return new String(address);
+    }
+
+    static final class IP4Formatter implements ByteConsumer {
+
+        boolean rest;
+        StringBuilder builder = new StringBuilder();
+        
+        @Override
+        public void accept(byte value) {
+            if (rest)
+                builder.append(".");
+            else
+                rest = true;
+            builder.append(value & 0xFF);
+        }
+        
+    }
+    
+    static final class IP6Formatter implements ByteConsumer {
+
+        int count, charPos;
+        char[] address = new char[32+7];
+        
+        @Override
+        public void accept(byte value) {
+            if (count > 0 && (count % 2 == 0)) {
+                address[charPos] = ':';
+                ++charPos;
+            }
+
+            int index = (value & 0xF0) >>> 4;
+            address[charPos] = HEX[index];
+            ++charPos;
+            index = value & 0x0F;
+            address[charPos] = HEX[index];
+            ++charPos;
+            ++count;
+        }
+        
     }
 
 }

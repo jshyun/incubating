@@ -15,29 +15,26 @@
  */
 package org.typelibrary.dns;
 
-import org.typelibrary.binarystrings.ByteString;
+public class ParseException extends RuntimeException {
 
-public final class RawRecord extends Record {
-
-    private final ByteString data;
-
-    public RawRecord(Name name, RecordType recordType, int recordClass, long timeToLive, ByteString data) {
-        super(name, recordType, recordClass, timeToLive);
-        if (data == null)
-            throw new IllegalArgumentException("Data cannot be null");
-        this.data = data;
+    public ParseException() {
+        super();
     }
 
-    public final int getDataLength() {
-        return data.length();
-    }
-    
-    public final ByteString getData() {
-        return data;
+    public ParseException(String msg, Throwable t, boolean enableSuppression, boolean writableStackTrace) {
+        super(msg, t, enableSuppression, writableStackTrace);
     }
 
-    public final String toString() {
-        return super.toString() + ", len=" + data.length();
+    public ParseException(String msg, Throwable t) {
+        super(msg, t);
+    }
+
+    public ParseException(String msg) {
+        super(msg);
+    }
+
+    public ParseException(Throwable t) {
+        super(t);
     }
 
 }

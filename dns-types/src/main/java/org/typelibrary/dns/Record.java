@@ -17,12 +17,12 @@ package org.typelibrary.dns;
 
 public abstract class Record {
 
-    protected final String name;
+    protected final Name name;
     protected final RecordType recordType;
     protected final int recordClass;
     protected final long timeToLive;
 
-    public Record(String name, RecordType recordType, int recordClass, long timeToLive) {
+    public Record(Name name, RecordType recordType, int recordClass, long timeToLive) {
         if (name == null)
             throw new IllegalArgumentException("Name cannot be null");
         if (recordType == null)
@@ -37,7 +37,7 @@ public abstract class Record {
         this.timeToLive = timeToLive;
     }
 
-    public final String getName() {
+    public final Name getName() {
         return name;
     }
     

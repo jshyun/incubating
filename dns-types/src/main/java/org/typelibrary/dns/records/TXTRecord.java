@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.typelibrary.binarystrings.ByteString;
+import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
@@ -27,7 +28,7 @@ public final class TXTRecord extends Record {
 
     private final List<ByteString> text;
 
-    public TXTRecord(String name, int recordClass, long timeToLive, List<ByteString> text) {
+    public TXTRecord(Name name, int recordClass, long timeToLive, List<ByteString> text) {
         super(name, RecordType.TXT, recordClass, timeToLive);
         if (text == null)
             throw new IllegalArgumentException("Text cannot be null");
