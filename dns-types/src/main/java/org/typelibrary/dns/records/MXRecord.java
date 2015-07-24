@@ -21,20 +21,18 @@ import org.typelibrary.dns.RecordType;
 
 public final class MXRecord extends Record {
 
-    private final int preference;
+    private final short preference;
     private final Name exchange;
 
-    public MXRecord(Name name, int recordClass, long timeToLive, int preference, Name exchange) {
+    public MXRecord(Name name, short recordClass, int timeToLive, short preference, Name exchange) {
         super(name, RecordType.MX, recordClass, timeToLive);
-        if (preference >> 16 != 0)
-            throw new IllegalArgumentException("Preference must be a 16-bit value. class=" + preference);
         if (exchange == null)
             throw new IllegalArgumentException("Exchange cannot be null");
         this.preference = preference;
         this.exchange = exchange;
     }
 
-    public final int getPreference() {
+    public final short getPreference() {
         return preference;
     }
 

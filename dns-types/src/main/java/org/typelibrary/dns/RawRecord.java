@@ -21,7 +21,7 @@ public final class RawRecord extends Record {
 
     private final ByteString data;
 
-    public RawRecord(Name name, RecordType recordType, int recordClass, long timeToLive, ByteString data) {
+    public RawRecord(Name name, RecordType recordType, short recordClass, int timeToLive, ByteString data) {
         super(name, recordType, recordClass, timeToLive);
         if (data == null)
             throw new IllegalArgumentException("Data cannot be null");

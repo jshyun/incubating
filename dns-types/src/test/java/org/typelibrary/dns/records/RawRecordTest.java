@@ -46,26 +46,6 @@ public class RawRecordTest extends AbstractRecordTest {
     }
     
     @Test
-    public void testInvalidClass() {
-        try {
-            RawRecord r = new RawRecord(STD_NAME, STD_TYPE, 0x01FFFF, STD_TTL, STD_DATA);
-            Assert.fail("Expected exception because class is too large. r=" + r);
-        } catch (IllegalArgumentException e) {
-            // Expected
-        }
-    }
-    
-    @Test
-    public void testInvalidTtl() {
-        try {
-            RawRecord r = new RawRecord(STD_NAME, STD_TYPE, STD_CLASS, 0x01FFFFFFFFL, STD_DATA);
-            Assert.fail("Expected exception because ttl is too large. r=" + r);
-        } catch (IllegalArgumentException e) {
-            // Expected
-        }
-    }
-
-    @Test
     public void testInvalidBuffer() {
         try {
             RawRecord r = new RawRecord(STD_NAME, STD_TYPE, STD_CLASS, STD_TTL, null);

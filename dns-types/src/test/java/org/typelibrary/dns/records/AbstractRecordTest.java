@@ -25,8 +25,8 @@ import org.typelibrary.dns.Record;
 public class AbstractRecordTest {
 
     protected final Name STD_NAME = Name.fromString("Name.");
-    protected final int STD_CLASS = 1;
-    protected final long STD_TTL = TimeUnit.MINUTES.toMillis(5);
+    protected final short STD_CLASS = 1;
+    protected final int STD_TTL = (int) TimeUnit.MINUTES.toMillis(5);
 
     protected void assertBaseRecord(Name name, int rclass, long ttl, Record r) {
         Assert.assertEquals(name, r.getName());

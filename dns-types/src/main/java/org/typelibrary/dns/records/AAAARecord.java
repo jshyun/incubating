@@ -29,7 +29,7 @@ public final class AAAARecord extends Record {
     private final ByteString address;
     private String toStringCache;
 
-    public AAAARecord(Name name, int recordClass, long timeToLive, ByteString address) {
+    public AAAARecord(Name name, short recordClass, int timeToLive, ByteString address) {
         super(name, RecordType.AAAA, recordClass, timeToLive);
         if (address == null) throw new IllegalArgumentException("Address cannot be null");
         if (address.length() != 16) throw new IllegalArgumentException("Address must be 16 bytes long. len=" + address.length());

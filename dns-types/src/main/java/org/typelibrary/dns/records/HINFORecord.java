@@ -25,8 +25,8 @@ public class HINFORecord extends Record {
     private final ByteString cpu;
     private final ByteString os;
 
-    public HINFORecord(Name name, int recordClass, long timeToLive, ByteString cpu, ByteString os) {
-        super(name, RecordType.CNAME, recordClass, timeToLive);
+    public HINFORecord(Name name, short recordClass, int timeToLive, ByteString cpu, ByteString os) {
+        super(name, RecordType.HINFO, recordClass, timeToLive);
         if (cpu == null)
             throw new IllegalArgumentException("CPU cannot be null");
         if (os == null)

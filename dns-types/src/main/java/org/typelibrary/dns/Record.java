@@ -19,18 +19,14 @@ public abstract class Record {
 
     protected final Name name;
     protected final RecordType recordType;
-    protected final int recordClass;
-    protected final long timeToLive;
+    protected final short recordClass;
+    protected final int timeToLive;
 
-    public Record(Name name, RecordType recordType, int recordClass, long timeToLive) {
+    public Record(Name name, RecordType recordType, short recordClass, int timeToLive) {
         if (name == null)
             throw new IllegalArgumentException("Name cannot be null");
         if (recordType == null)
             throw new IllegalArgumentException("Record type cannot be null");
-        if (recordClass >> 16 != 0)
-            throw new IllegalArgumentException("Record class must be a 16 bit value. class=" + recordClass);
-        if (timeToLive >> 32 != 0)
-            throw new IllegalArgumentException("TTL must be a 32-bit value. ttl=" + timeToLive);
         this.name = name;
         this.recordType = recordType;
         this.recordClass = recordClass;
@@ -45,11 +41,11 @@ public abstract class Record {
         return recordType;
     }
     
-    public final int getRecordClass() {
+    public final short getRecordClass() {
         return recordClass;
     }
     
-    public final long getTimeToLive() {
+    public final int getTimeToLive() {
         return timeToLive;
     }
     

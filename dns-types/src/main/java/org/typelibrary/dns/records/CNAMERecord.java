@@ -19,11 +19,11 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
-public final class CNameRecord extends Record {
+public final class CNAMERecord extends Record {
 
     private final Name cname;
 
-    public CNameRecord(Name name, int recordClass, long timeToLive, Name cname) {
+    public CNAMERecord(Name name, short recordClass, int timeToLive, Name cname) {
         super(name, RecordType.CNAME, recordClass, timeToLive);
         if (cname == null)
             throw new IllegalArgumentException("CName cannot be null");

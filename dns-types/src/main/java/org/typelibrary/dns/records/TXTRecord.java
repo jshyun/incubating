@@ -28,7 +28,7 @@ public final class TXTRecord extends Record {
 
     private final List<ByteString> text;
 
-    public TXTRecord(Name name, int recordClass, long timeToLive, List<ByteString> text) {
+    public TXTRecord(Name name, short recordClass, int timeToLive, List<ByteString> text) {
         super(name, RecordType.TXT, recordClass, timeToLive);
         if (text == null)
             throw new IllegalArgumentException("Text cannot be null");

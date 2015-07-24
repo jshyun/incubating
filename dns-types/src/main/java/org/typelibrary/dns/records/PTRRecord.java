@@ -23,7 +23,7 @@ public final class PTRRecord extends Record {
 
     private final Name domainName;
 
-    public PTRRecord(Name name, int recordClass, long timeToLive, Name domainName) {
+    public PTRRecord(Name name, short recordClass, int timeToLive, Name domainName) {
         super(name, RecordType.PTR, recordClass, timeToLive);
         if (domainName == null)
             throw new IllegalArgumentException("Domain name cannot be null");

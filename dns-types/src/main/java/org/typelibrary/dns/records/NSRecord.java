@@ -23,7 +23,7 @@ public final class NSRecord extends Record {
 
     private final Name nameServer;
 
-    public NSRecord(Name name, int recordClass, long timeToLive, Name nameServer) {
+    public NSRecord(Name name, short recordClass, int timeToLive, Name nameServer) {
         super(name, RecordType.NS, recordClass, timeToLive);
         if (nameServer== null)
             throw new IllegalArgumentException("Name server cannot be null");

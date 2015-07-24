@@ -23,30 +23,20 @@ public final class SOARecord extends Record {
 
     private final Name masterName;
     private final Name responsibleName;
-    private final long serialNumber;
-    private final long refreshInterval;
-    private final long retryInterval;
-    private final long expireInterval;
-    private final long minimum;
+    private final int serialNumber;
+    private final int refreshInterval;
+    private final int retryInterval;
+    private final int expireInterval;
+    private final int minimum;
 
-    public SOARecord(Name name, int recordClass, long timeToLive, Name masterName,
-            Name responsibleName, long serialNumber, long refreshInterval, long retryInterval,
-            long expireInterval, long minimum) {
+    public SOARecord(Name name, short recordClass, int timeToLive, Name masterName,
+            Name responsibleName, int serialNumber, int refreshInterval, int retryInterval,
+            int expireInterval, int minimum) {
         super(name, RecordType.SOA, recordClass, timeToLive);
         if (masterName == null)
             throw new IllegalArgumentException("Master name cannot be null");
         if (responsibleName == null)
             throw new IllegalArgumentException("Responsible name cannot be null");
-        if (serialNumber >> 32 != 0)
-            throw new IllegalArgumentException("Serial number must be a 32-bit value. serialNumber=" + serialNumber);
-        if (refreshInterval >> 32 != 0)
-            throw new IllegalArgumentException("Refresh interval must be a 32-bit value. refreshInterval=" + refreshInterval);
-        if (retryInterval >> 32 != 0)
-            throw new IllegalArgumentException("Retry interval must be a 32-bit value. retryInterval=" + retryInterval);
-        if (expireInterval >> 32 != 0)
-            throw new IllegalArgumentException("Expire interval must be a 32-bit value. expireInterval=" + expireInterval);
-        if (minimum >> 32 != 0)
-            throw new IllegalArgumentException("Minimum must be a 32-bit value. minimum=" + minimum);
         this.masterName = masterName;
         this.responsibleName = responsibleName;
         this.serialNumber = serialNumber;
@@ -64,23 +54,23 @@ public final class SOARecord extends Record {
         return responsibleName;
     }
 
-    public final long getSerialNumber() {
+    public final int getSerialNumber() {
         return serialNumber;
     }
 
-    public final long getRefreshInterval() {
+    public final int getRefreshInterval() {
         return refreshInterval;
     }
 
-    public final long getRetryInterval() {
+    public final int getRetryInterval() {
         return retryInterval;
     }
 
-    public final long getExpireInterval() {
+    public final int getExpireInterval() {
         return expireInterval;
     }
 
-    public final long getMinimum() {
+    public final int getMinimum() {
         return minimum;
     }
 
