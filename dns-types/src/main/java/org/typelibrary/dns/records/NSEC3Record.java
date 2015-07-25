@@ -35,6 +35,8 @@ public final class NSEC3Record extends Record {
             byte flags, short iterations, byte saltLength, int salt, byte hashLength,
             int nextHashedOwnerName, ByteString typeBitmaps) {
         super(name, RecordType.NSEC3, recordClass, timeToLive);
+        if (typeBitmaps == null)
+            throw new IllegalArgumentException("Type bitmaps cannot be null.");
         this.algorithm = algorithm;
         this.flags = flags;
         this.iterations = iterations;

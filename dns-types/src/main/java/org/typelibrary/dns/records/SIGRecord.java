@@ -36,6 +36,10 @@ public final class SIGRecord extends Record {
             byte algorithm, byte labels, int originalTtl, int signatureExpiration,
             int signatureInception, short keyTag, Name signer, ByteString publicKey) {
         super(name, RecordType.SIG, recordClass, timeToLive);
+        if (signer == null)
+            throw new IllegalArgumentException("Signer cannot be null.");
+        if (publicKey == null)
+            throw new IllegalArgumentException("Public key cannot be null.");
         this.typeCovered = typeCovered;
         this.algorithm = algorithm;
         this.labels = labels;

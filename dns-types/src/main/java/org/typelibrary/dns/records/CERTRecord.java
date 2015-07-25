@@ -30,6 +30,8 @@ public final class CERTRecord extends Record {
     public CERTRecord(Name name, short recordClass, int timeToLive, short type,
             short keyTag, byte algorithm, ByteString certificate) {
         super(name, RecordType.CERT, recordClass, timeToLive);
+        if (certificate == null)
+            throw new IllegalArgumentException("Digest cannot be null.");
         this.type = type;
         this.keyTag = keyTag;
         this.algorithm = algorithm;

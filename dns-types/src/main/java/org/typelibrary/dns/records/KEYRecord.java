@@ -30,6 +30,8 @@ public final class KEYRecord extends Record {
     public KEYRecord(Name name, short recordClass, int timeToLive, short flags,
             byte protocol, byte algorithm, ByteString publicKey) {
         super(name, RecordType.KEY, recordClass, timeToLive);
+        if (publicKey == null)
+            throw new IllegalArgumentException("Public key cannot be null.");
         this.flags = flags;
         this.protocol = protocol;
         this.algorithm = algorithm;

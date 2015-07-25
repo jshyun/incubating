@@ -35,6 +35,12 @@ public final class TSIGRecord extends Record {
             long timeSigned, short fudge, short macSize, ByteString mac, short originalId,
             short otherLen, ByteString otherData) {
         super(name, RecordType.TSIG, recordClass, timeToLive);
+        if (algorithm == null)
+            throw new IllegalArgumentException("Algorithm cannot be null.");
+        if (mac == null)
+            throw new IllegalArgumentException("Mac cannot be null.");
+        if (otherData == null)
+            throw new IllegalArgumentException("Other data cannot be null.");
         this.algorithm = algorithm;
         this.timeSigned = timeSigned;
         this.fudge = fudge;

@@ -30,6 +30,8 @@ public final class CDNSKEYRecord extends Record {
     public CDNSKEYRecord(Name name, short recordClass, int timeToLive, short flags,
             byte protocol, byte algorithm, ByteString publicKey) {
         super(name, RecordType.CDNSKEY, recordClass, timeToLive);
+        if (publicKey == null)
+            throw new IllegalArgumentException("Public key cannot be null.");
         this.flags = flags;
         this.protocol = protocol;
         this.algorithm = algorithm;

@@ -31,6 +31,10 @@ public final class IPSECKEYRecord extends Record {
     public IPSECKEYRecord(Name name, short recordClass, int timeToLive, byte precedence,
             byte gatewayType, byte algorithm, ByteString gateway, ByteString publicKey) {
         super(name, RecordType.IPSECKEY, recordClass, timeToLive);
+        if (gateway == null)
+            throw new IllegalArgumentException("Gateway cannot be null.");
+        if (publicKey == null)
+            throw new IllegalArgumentException("Public key cannot be null.");
         this.precedence = precedence;
         this.gatewayType = gatewayType;
         this.algorithm = algorithm;

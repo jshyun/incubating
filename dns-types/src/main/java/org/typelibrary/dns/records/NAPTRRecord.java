@@ -32,6 +32,14 @@ public final class NAPTRRecord extends Record {
     public NAPTRRecord(Name name, short recordClass, int timeToLive, short order, short preference,
             ByteString flags, ByteString services, ByteString regexp, Name replacement) {
         super(name, RecordType.NAPTR, recordClass, timeToLive);
+        if (flags == null)
+            throw new IllegalArgumentException("Flags cannot be null.");
+        if (services == null)
+            throw new IllegalArgumentException("Services cannot be null.");
+        if (regexp == null)
+            throw new IllegalArgumentException("Regexp cannot be null.");
+        if (replacement == null)
+            throw new IllegalArgumentException("Replacement cannot be null.");
         this.order = order;
         this.preference = preference;
         this.flags = flags;

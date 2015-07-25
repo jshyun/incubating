@@ -15,6 +15,10 @@
  */
 package org.typelibrary.dns.records;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.typelibrary.binarystrings.ByteString;
 import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
@@ -22,48 +26,66 @@ import org.typelibrary.dns.RecordType;
 
 public final class APLRecord extends Record {
 
-    private final short addressFamily;
-    private final byte prefix;
-    private final boolean negate;
-    private final byte afdLength;
-    private final ByteString afdPart;
+    private final List<APItem> items;
 
-    public APLRecord(Name name, short recordClass, int timeToLive, short addressFamily,
-            byte prefix, boolean negate, byte afdLength, ByteString afdPart) {
+    public APLRecord(Name name, short recordClass, int timeToLive, List<APItem> items) {
         super(name, RecordType.APL, recordClass, timeToLive);
-        if (afdPart== null)
-            throw new IllegalArgumentException("Exchange cannot be null");
-        this.addressFamily = addressFamily;
-        this.prefix = prefix;
-        this.negate = negate;
-        this.afdLength = afdLength;
-        this.afdPart = afdPart;
+        if (items == null)
+            throw new IllegalArgumentException("AP items cannot be null");
+        this.items = Collections.unmodifiableList(new ArrayList<APItem>(items));
     }
 
-    public short getAddressFamily() {
-        return addressFamily;
-    }
-
-    public byte getPrefix() {
-        return prefix;
-    }
-
-    public boolean isNegate() {
-        return negate;
-    }
-
-    public byte getAfdLength() {
-        return afdLength;
-    }
-
-    public ByteString getAfdPart() {
-        return afdPart;
+    public List<APItem> getItems() {
+        return items;
     }
 
     @Override
     public String toString() {
-        return super.toString() + ", addressFamily=" + addressFamily + ", prefix=" + prefix
-                + ", negate=" + negate + ", afdLength=" + afdLength + ", afdPart=" + afdPart + "]";
+        return super.toString() + ", items=" + items;
     }
 
+    public static class APItem {
+        private final short addressFamily;
+        private final byte prefix;
+        private final boolean negate;
+        private final byte afdLength;
+        private final ByteString afdPart;
+
+        public APItem(short addressFamily, byte prefix, boolean negate, byte afdLength,
+                ByteString afdPart) {
+            if (afdPart == null)
+                throw new IllegalArgumentException("AFD Part cannot be null.");
+            this.addressFamily = addressFamily;
+            this.prefix = prefix;
+            this.negate = negate;
+            this.afdLength = afdLength;
+            this.afdPart = afdPart;
+        }
+
+        public short getAddressFamily() {
+            return addressFamily;
+        }
+
+        public byte getPrefix() {
+            return prefix;
+        }
+
+        public boolean isNegate() {
+            return negate;
+        }
+
+        public byte getAfdLength() {
+            return afdLength;
+        }
+
+        public ByteString getAfdPart() {
+            return afdPart;
+        }
+
+        @Override
+        public String toString() {
+            return "addressFamily=" + addressFamily + ", prefix=" + prefix + ", negate=" + negate
+                    + ", afdLength=" + afdLength + ", afdPart=" + afdPart;
+        }
+    }
 }

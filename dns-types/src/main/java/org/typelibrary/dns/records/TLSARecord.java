@@ -30,6 +30,8 @@ public final class TLSARecord extends Record {
     public TLSARecord(Name name, short recordClass, int timeToLive, byte certUsage, byte selector,
             byte matchingType, ByteString data) {
         super(name, RecordType.TLSA, recordClass, timeToLive);
+        if (data == null)
+            throw new IllegalArgumentException("Data cannot be null.");
         this.certUsage = certUsage;
         this.selector = selector;
         this.matchingType = matchingType;

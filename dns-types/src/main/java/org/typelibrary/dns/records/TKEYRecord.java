@@ -33,6 +33,12 @@ public final class TKEYRecord extends Record {
     public TKEYRecord(Name name, short recordClass, int timeToLive, Name algorithm, int inception,
             int expiration, short mode, short keySize, ByteString keyData, ByteString otherData) {
         super(name, RecordType.TKEY, recordClass, timeToLive);
+        if (algorithm == null)
+            throw new IllegalArgumentException("Algorithm cannot be null.");
+        if (keyData == null)
+            throw new IllegalArgumentException("Key data cannot be null.");
+        if (otherData == null)
+            throw new IllegalArgumentException("Other data cannot be null.");
         this.algorithm = algorithm;
         this.inception = inception;
         this.expiration = expiration;

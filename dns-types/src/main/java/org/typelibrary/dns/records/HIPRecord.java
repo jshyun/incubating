@@ -36,6 +36,12 @@ public final class HIPRecord extends Record {
     public HIPRecord(Name name, short recordClass, int timeToLive, byte hitLength, byte algorithm,
             short pkLength, ByteString hit, ByteString publicKey, List<Name> rendezvousServers) {
         super(name, RecordType.HIP, recordClass, timeToLive);
+        if (hit == null)
+            throw new IllegalArgumentException("Hit cannot be null.");
+        if (publicKey == null)
+            throw new IllegalArgumentException("Public key cannot be null.");
+        if (rendezvousServers == null)
+            throw new IllegalArgumentException("Rendezvous servers list cannot be null.");
         this.hitLength = hitLength;
         this.algorithm = algorithm;
         this.pkLength = pkLength;

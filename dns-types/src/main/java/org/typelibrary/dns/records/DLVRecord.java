@@ -30,6 +30,8 @@ public final class DLVRecord extends Record {
     public DLVRecord(Name name, short recordClass, int timeToLive, short keyTag,
             byte algorithm, byte digestType, ByteString digest) {
         super(name, RecordType.DLV, recordClass, timeToLive);
+        if (digest == null)
+            throw new IllegalArgumentException("Digest cannot be null.");
         this.keyTag = keyTag;
         this.algorithm = algorithm;
         this.digestType = digestType;

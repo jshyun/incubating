@@ -29,6 +29,8 @@ public final class SSHFPRecord extends Record {
     public SSHFPRecord(Name name, short recordClass, int timeToLive, byte algorithm,
             byte fpType, ByteString fingerprint) {
         super(name, RecordType.SSHFP, recordClass, timeToLive);
+        if (fingerprint == null)
+            throw new IllegalArgumentException("Fingerprint cannot be null.");
         this.algorithm = algorithm;
         this.fpType = fpType;
         this.fingerprint = fingerprint;

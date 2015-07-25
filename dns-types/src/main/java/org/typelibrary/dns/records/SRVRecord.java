@@ -29,6 +29,8 @@ public final class SRVRecord extends Record {
     public SRVRecord(Name name, short recordClass, int timeToLive, short priority,
             short weight, short port, Name target) {
         super(name, RecordType.SRV, recordClass, timeToLive);
+        if (target == null)
+            throw new IllegalArgumentException("Target cannot be null.");
         this.priority = priority;
         this.weight = weight;
         this.port = port;

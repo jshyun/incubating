@@ -28,6 +28,10 @@ public final class NSECRecord extends Record {
     public NSECRecord(Name name, short recordClass, int timeToLive, Name nextDomainName,
             ByteString typeBitmap) {
         super(name, RecordType.NSEC, recordClass, timeToLive);
+        if (nextDomainName == null)
+            throw new IllegalArgumentException("Next domain name cannot be null.");
+        if (typeBitmap == null)
+            throw new IllegalArgumentException("Type bitmap cannot be null.");
         this.nextDomainName = nextDomainName;
         this.typeBitmap = typeBitmap;
     }

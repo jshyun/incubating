@@ -28,6 +28,10 @@ public final class NXTRecord extends Record {
     public NXTRecord(Name name, short recordClass, int timeToLive, Name nextDomainName,
             ByteString typeBitmap) {
         super(name, RecordType.NXT, recordClass, timeToLive);
+        if (nextDomainName == null)
+            throw new IllegalArgumentException("Next domain name cannot be null.");
+        if (typeBitmap == null)
+            throw new IllegalArgumentException("Type bitmap cannot be null.");
         this.nextDomainName = nextDomainName;
         this.typeBitmap = typeBitmap;
     }
