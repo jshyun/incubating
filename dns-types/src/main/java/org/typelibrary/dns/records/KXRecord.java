@@ -19,30 +19,29 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
-public final class RRRecord extends Record {
+public final class KXRecord extends Record {
 
     private final short preference;
-    private final Name intermediateHost;
+    private final Name exchange;
 
-    public RRRecord(Name name, short recordClass, int timeToLive, short preference,
-            Name intermediateHost) {
-        super(name, RecordType.MX, recordClass, timeToLive);
-        if (intermediateHost == null)
-            throw new IllegalArgumentException("Intermediate host cannot be null");
+    public KXRecord(Name name, short recordClass, int timeToLive, short preference, Name exchange) {
+        super(name, RecordType.KX, recordClass, timeToLive);
+        if (exchange == null)
+            throw new IllegalArgumentException("Exchange cannot be null");
         this.preference = preference;
-        this.intermediateHost = intermediateHost;
+        this.exchange = exchange;
     }
 
     public final short getPreference() {
         return preference;
     }
 
-    public final Name getIntermediateHost() {
-        return intermediateHost;
+    public final Name getExchange() {
+        return exchange;
     }
 
     public final String toString() {
-        return super.toString() + ", preference=" + preference + ", intermediateHost=" + intermediateHost;
+        return super.toString() + ", preference=" + preference + ", exchange=" + exchange;
     }
 
 }
