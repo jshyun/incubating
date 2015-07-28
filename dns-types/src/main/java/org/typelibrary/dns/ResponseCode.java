@@ -38,7 +38,7 @@ public final class ResponseCode {
 //    public static final ResponseCode BADALG    = new ResponseCode(21, "BADALG");
 //    public static final ResponseCode BADTRUNC  = new ResponseCode(22, "BADTRUNC");
     
-    private final int value;
+    private final byte value;
     private final String name;
 
     public ResponseCode(int value, String name) {
@@ -46,18 +46,22 @@ public final class ResponseCode {
             throw new IllegalArgumentException("Response code must be 4-bit value. value=" + value);
         if (name == null)
             throw new IllegalArgumentException("Name must not be null");
-        this.value = value;
+        this.value = (byte) value;
         this.name = name;
     }
 
-    public final int toInt() {
+    public byte getValue() {
         return value;
     }
-
-    public final String getName() {
+    
+    public String getName() {
         return name;
     }
 
+    public int toInt() {
+        return value & 0xFF;
+    }
+    
     @Override
     public int hashCode() {
         return value;
@@ -81,6 +85,10 @@ public final class ResponseCode {
         return (name != null) ? (name + "[" + value + "]") : Integer.toString(value);
     }
 
+    public static final ResponseCode fromByte(byte value) {
+        return fromInt(value & 0xFF);
+    }
+    
     public static final ResponseCode fromInt(int value) {
         if (value >> 4 != 0)
             throw new IllegalArgumentException("Response code must be 4-bit value. value=" + value);

@@ -91,7 +91,7 @@ public final class RecordType {
     public static final RecordType CAA        = new RecordType(257, "CAA");
     public static final RecordType DLV        = new RecordType(32769, "DLV");
     
-	private final int value;
+	private final short value;
 	private final String name;
 
 	public RecordType(int value, String name) {
@@ -99,18 +99,22 @@ public final class RecordType {
             throw new IllegalArgumentException("Record type must be a 16-bit value. type=" + value);
         if (name == null)
             throw new IllegalArgumentException("Name must not be null");
-        this.value = value;
+        this.value = (short) value;
 		this.name = name;
 	}
 	
-	public final int toInt() {
-		return value;
+	public short getValue() {
+	    return value;
 	}
-
-	public final String getName() {
+	
+	public String getName() {
 		return name;
 	}
 
+    public int toInt() {
+        return value & 0xFFFF;
+    }
+	
 	@Override
     public int hashCode() {
         return value;
@@ -130,11 +134,15 @@ public final class RecordType {
         return true;
     }
 
-    public final String toString() {
+    public String toString() {
 		return (name != null) ? (name + "[" + value + "]") : Integer.toString(value);
 	}
 
-	public static final RecordType fromInt(int value) {
+    public static RecordType fromShort(short value) {
+        return fromInt(value & 0xFFFF);
+    }
+    
+	public static RecordType fromInt(int value) {
         if (value >> 16 != 0)
             throw new IllegalArgumentException("Record type must be a 16-bit value. type=" + value);
 

@@ -21,19 +21,20 @@ import java.util.List;
 
 import org.typelibrary.binarystrings.ByteString;
 import org.typelibrary.dns.Name;
+import org.typelibrary.dns.PublicKeyAlgorithm;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
 public final class HIPRecord extends Record {
 
     private final byte hitLength;
-    private final byte algorithm;
+    private final PublicKeyAlgorithm algorithm;
     private final short pkLength;
     private final ByteString hit;
     private final ByteString publicKey;
     private final List<Name> rendezvousServers;
 
-    public HIPRecord(Name name, short recordClass, int timeToLive, byte hitLength, byte algorithm,
+    public HIPRecord(Name name, short recordClass, int timeToLive, byte hitLength, PublicKeyAlgorithm algorithm,
             short pkLength, ByteString hit, ByteString publicKey, List<Name> rendezvousServers) {
         super(name, RecordType.HIP, recordClass, timeToLive);
         if (hit == null)
@@ -54,7 +55,7 @@ public final class HIPRecord extends Record {
         return hitLength;
     }
 
-    public byte getAlgorithm() {
+    public PublicKeyAlgorithm getAlgorithm() {
         return algorithm;
     }
 

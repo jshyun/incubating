@@ -37,6 +37,8 @@ public final class TSIGRecord extends Record {
         super(name, RecordType.TSIG, recordClass, timeToLive);
         if (algorithm == null)
             throw new IllegalArgumentException("Algorithm cannot be null.");
+        if ((timeSigned >>> 48) != 0)
+            throw new IllegalArgumentException("Time signed must be a 48 bit value.");
         if (mac == null)
             throw new IllegalArgumentException("Mac cannot be null.");
         if (otherData == null)

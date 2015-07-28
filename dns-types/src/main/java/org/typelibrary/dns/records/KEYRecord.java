@@ -16,19 +16,21 @@
 package org.typelibrary.dns.records;
 
 import org.typelibrary.binarystrings.ByteString;
+import org.typelibrary.dns.Algorithm;
 import org.typelibrary.dns.Name;
+import org.typelibrary.dns.Protocol;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
 public final class KEYRecord extends Record {
 
     private final short flags;
-    private final byte protocol;
-    private final byte algorithm;
+    private final Protocol protocol;
+    private final Algorithm algorithm;
     private final ByteString publicKey;
 
     public KEYRecord(Name name, short recordClass, int timeToLive, short flags,
-            byte protocol, byte algorithm, ByteString publicKey) {
+            Protocol protocol, Algorithm algorithm, ByteString publicKey) {
         super(name, RecordType.KEY, recordClass, timeToLive);
         if (publicKey == null)
             throw new IllegalArgumentException("Public key cannot be null.");
@@ -42,11 +44,11 @@ public final class KEYRecord extends Record {
         return flags;
     }
 
-    public byte getProtocol() {
+    public Protocol getProtocol() {
         return protocol;
     }
 
-    public byte getAlgorithm() {
+    public Algorithm getAlgorithm() {
         return algorithm;
     }
 

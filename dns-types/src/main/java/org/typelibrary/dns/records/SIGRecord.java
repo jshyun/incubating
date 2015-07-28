@@ -16,6 +16,7 @@
 package org.typelibrary.dns.records;
 
 import org.typelibrary.binarystrings.ByteString;
+import org.typelibrary.dns.Algorithm;
 import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
@@ -23,7 +24,7 @@ import org.typelibrary.dns.RecordType;
 public final class SIGRecord extends Record {
 
     private final short typeCovered;
-    private final byte algorithm;
+    private final Algorithm algorithm;
     private final byte labels;
     private final int originalTtl;
     private final int signatureExpiration;
@@ -33,7 +34,7 @@ public final class SIGRecord extends Record {
     private final ByteString publicKey;
 
     public SIGRecord(Name name, short recordClass, int timeToLive, short typeCovered,
-            byte algorithm, byte labels, int originalTtl, int signatureExpiration,
+            Algorithm algorithm, byte labels, int originalTtl, int signatureExpiration,
             int signatureInception, short keyTag, Name signer, ByteString publicKey) {
         super(name, RecordType.SIG, recordClass, timeToLive);
         if (signer == null)
@@ -55,7 +56,7 @@ public final class SIGRecord extends Record {
         return typeCovered;
     }
 
-    public byte getAlgorithm() {
+    public Algorithm getAlgorithm() {
         return algorithm;
     }
 

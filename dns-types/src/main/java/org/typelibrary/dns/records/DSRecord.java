@@ -16,6 +16,8 @@
 package org.typelibrary.dns.records;
 
 import org.typelibrary.binarystrings.ByteString;
+import org.typelibrary.dns.Algorithm;
+import org.typelibrary.dns.DigestType;
 import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
@@ -23,13 +25,17 @@ import org.typelibrary.dns.RecordType;
 public final class DSRecord extends Record {
 
     private final short keyTag;
-    private final byte algorithm;
-    private final byte digestType;
+    private final Algorithm algorithm;
+    private final DigestType digestType;
     private final ByteString digest;
 
     public DSRecord(Name name, short recordClass, int timeToLive, short keyTag,
-            byte algorithm, byte digestType, ByteString digest) {
+            Algorithm algorithm, DigestType digestType, ByteString digest) {
         super(name, RecordType.DS, recordClass, timeToLive);
+        if (algorithm == null)
+            throw new IllegalArgumentException("Algorithm cannot be null.");
+        if (digestType == null)
+            throw new IllegalArgumentException("Digest type cannot be null.");
         if (digest == null)
             throw new IllegalArgumentException("Digest cannot be null.");
         this.keyTag = keyTag;
@@ -42,11 +48,11 @@ public final class DSRecord extends Record {
         return keyTag;
     }
 
-    public byte getAlgorithm() {
+    public Algorithm getAlgorithm() {
         return algorithm;
     }
 
-    public byte getDigestType() {
+    public DigestType getDigestType() {
         return digestType;
     }
 

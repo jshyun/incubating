@@ -83,6 +83,43 @@ public final class APLRecord extends Record {
         }
 
         @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + addressFamily;
+            result = prime * result + afdLength;
+            result = prime * result + ((afdPart == null) ? 0 : afdPart.hashCode());
+            result = prime * result + (negate ? 1231 : 1237);
+            result = prime * result + prefix;
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            APItem other = (APItem) obj;
+            if (addressFamily != other.addressFamily)
+                return false;
+            if (afdLength != other.afdLength)
+                return false;
+            if (afdPart == null) {
+                if (other.afdPart != null)
+                    return false;
+            } else if (!afdPart.equals(other.afdPart))
+                return false;
+            if (negate != other.negate)
+                return false;
+            if (prefix != other.prefix)
+                return false;
+            return true;
+        }
+
+        @Override
         public String toString() {
             return "addressFamily=" + addressFamily + ", prefix=" + prefix + ", negate=" + negate
                     + ", afdLength=" + afdLength + ", afdPart=" + afdPart;

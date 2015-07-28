@@ -15,19 +15,20 @@
  */
 package org.typelibrary.dns.records;
 
+import org.typelibrary.dns.Algorithm;
 import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
 public final class NSEC3PARAMRecord extends Record {
 
-    private final byte algorithm;
+    private final Algorithm algorithm;
     private final byte flags;
     private final short iterations;
     private final byte saltLength;
     private final int salt;
 
-    public NSEC3PARAMRecord(Name name, short recordClass, int timeToLive, byte algorithm,
+    public NSEC3PARAMRecord(Name name, short recordClass, int timeToLive, Algorithm algorithm,
             byte flags, short iterations, byte saltLength, int salt) {
         super(name, RecordType.NSEC3PARAM, recordClass, timeToLive);
         this.algorithm = algorithm;
@@ -37,7 +38,7 @@ public final class NSEC3PARAMRecord extends Record {
         this.salt = salt;
     }
 
-    public byte getAlgorithm() {
+    public Algorithm getAlgorithm() {
         return algorithm;
     }
 

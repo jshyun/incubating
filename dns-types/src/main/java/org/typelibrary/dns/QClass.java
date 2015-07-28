@@ -23,7 +23,7 @@ public final class QClass {
     public static final QClass NONE  = new QClass(254, "NONE");
     public static final QClass ANY   = new QClass(255, "ANY");
     
-    private final int value;
+    private final short value;
     private final String name;
 
     public QClass(int value, String name) {
@@ -31,18 +31,22 @@ public final class QClass {
             throw new IllegalArgumentException("QClass must be a 16-bit value. qclass=" + value);
         if (name == null)
             throw new IllegalArgumentException("Name must not be null");
-        this.value = value;
+        this.value = (short) value;
         this.name = name;
     }
 
-    public final int toInt() {
+    public short getValue() {
         return value;
     }
-
-    public final String getName() {
+    
+    public String getName() {
         return name;
     }
-
+    
+    public int toInt() {
+        return value & 0xFFFF;
+    }
+    
     @Override
     public int hashCode() {
         return value;
@@ -66,6 +70,10 @@ public final class QClass {
         return (name != null) ? (name + "[" + value + "]") : Integer.toString(value);
     }
 
+    public static final QClass fromByte(byte value) {
+        return fromInt(value & 0xFF);
+    }
+    
     public static final QClass fromInt(int value) {
         if (value >> 16 != 0)
             throw new IllegalArgumentException("QClass must be a 16 bit value. qclass=" + value);

@@ -23,26 +23,30 @@ public final class OpCode {
     public static final OpCode NOTIFY = new OpCode(4, "NOTIFY");
     public static final OpCode UPDATE = new OpCode(5, "UPDATE");
 
-    private final int value;
+    private final byte value;
     private final String name;
 
     public OpCode(int value, String name) {
-        if (value >> 4 != 0)
+        if ((value >> 4) != 0)
             throw new IllegalArgumentException("OpCode must be 4-bit value. value=" + value);
         if (name == null)
             throw new IllegalArgumentException("Name must not be null");
-        this.value = value;
+        this.value = (byte) value;
         this.name = name;
     }
 
-    public final int toInt() {
+    public byte getValue() {
         return value;
     }
-
-    public final String getName() {
+    
+    public String getName() {
         return name;
     }
 
+    public int toInt() {
+        return value & 0xFF;
+    }
+    
     @Override
     public int hashCode() {
         return value;
@@ -62,12 +66,16 @@ public final class OpCode {
         return true;
     }
 
-    public final String toString() {
+    public String toString() {
         return (name != null) ? (name + "[" + value + "]") : Integer.toString(value);
     }
 
-    public static final OpCode fromInt(int value) {
-        if (value >> 4 != 0)
+    public static OpCode fromByte(byte value) {
+        return fromInt(value & 0xFF);
+    }
+    
+    public static OpCode fromInt(int value) {
+        if ((value >> 4) != 0)
             throw new IllegalArgumentException("OpCode must be 4-bit value. value=" + value);
 
         switch (value) {

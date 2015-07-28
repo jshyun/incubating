@@ -16,13 +16,14 @@
 package org.typelibrary.dns.records;
 
 import org.typelibrary.binarystrings.ByteString;
+import org.typelibrary.dns.Algorithm;
 import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
 public final class NSEC3Record extends Record {
 
-    private final byte algorithm;
+    private final Algorithm algorithm;
     private final byte flags;
     private final short iterations;
     private final byte saltLength;
@@ -31,7 +32,7 @@ public final class NSEC3Record extends Record {
     private final int nextHashedOwnerName;
     private final ByteString typeBitmaps;
 
-    public NSEC3Record(Name name, short recordClass, int timeToLive, byte algorithm,
+    public NSEC3Record(Name name, short recordClass, int timeToLive, Algorithm algorithm,
             byte flags, short iterations, byte saltLength, int salt, byte hashLength,
             int nextHashedOwnerName, ByteString typeBitmaps) {
         super(name, RecordType.NSEC3, recordClass, timeToLive);
@@ -47,7 +48,7 @@ public final class NSEC3Record extends Record {
         this.typeBitmaps = typeBitmaps;
     }
 
-    public byte getAlgorithm() {
+    public Algorithm getAlgorithm() {
         return algorithm;
     }
 

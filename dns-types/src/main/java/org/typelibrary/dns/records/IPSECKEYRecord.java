@@ -15,21 +15,58 @@
  */
 package org.typelibrary.dns.records;
 
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+
 import org.typelibrary.binarystrings.ByteString;
+import org.typelibrary.dns.GatewayType;
 import org.typelibrary.dns.Name;
+import org.typelibrary.dns.PublicKeyAlgorithm;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
 public final class IPSECKEYRecord extends Record {
 
     private final byte precedence;
-    private final byte gatewayType;
-    private final byte algorithm;
-    private final ByteString gateway;
+    private final GatewayType gatewayType;
+    private final PublicKeyAlgorithm algorithm;
+    private final Object gateway;
     private final ByteString publicKey;
 
     public IPSECKEYRecord(Name name, short recordClass, int timeToLive, byte precedence,
-            byte gatewayType, byte algorithm, ByteString gateway, ByteString publicKey) {
+            PublicKeyAlgorithm algorithm, ByteString publicKey) {
+        this(name, recordClass, timeToLive, precedence, GatewayType.NONE, algorithm, null,
+                publicKey);
+    }
+    
+    public IPSECKEYRecord(Name name, short recordClass, int timeToLive, byte precedence,
+            PublicKeyAlgorithm algorithm, InetAddress gateway, ByteString publicKey) {
+        super(name, RecordType.IPSECKEY, recordClass, timeToLive);
+        if (gateway == null)
+            throw new IllegalArgumentException("Gateway cannot be null.");
+        if (publicKey == null)
+            throw new IllegalArgumentException("Public key cannot be null.");
+        if (gateway instanceof Inet4Address)
+            gatewayType = GatewayType.IPV4;
+        else if (gateway instanceof Inet6Address)
+            gatewayType = GatewayType.IPV6;
+        else 
+            throw new IllegalArgumentException("Gateway address type is unrecognized.");
+        this.precedence = precedence;
+        this.algorithm = algorithm;
+        this.gateway = gateway;
+        this.publicKey = publicKey;
+    }
+
+    public IPSECKEYRecord(Name name, short recordClass, int timeToLive, byte precedence,
+            PublicKeyAlgorithm algorithm, Name domainName, ByteString publicKey) {
+        this(name, recordClass, timeToLive, precedence, GatewayType.DOMAIN_NAME, algorithm, domainName,
+                publicKey);
+    }
+    
+    private IPSECKEYRecord(Name name, short recordClass, int timeToLive, byte precedence,
+            GatewayType gatewayType, PublicKeyAlgorithm algorithm, Object gateway, ByteString publicKey) {
         super(name, RecordType.IPSECKEY, recordClass, timeToLive);
         if (gateway == null)
             throw new IllegalArgumentException("Gateway cannot be null.");
@@ -46,15 +83,15 @@ public final class IPSECKEYRecord extends Record {
         return precedence;
     }
 
-    public byte getGatewayType() {
+    public GatewayType getGatewayType() {
         return gatewayType;
     }
 
-    public byte getAlgorithm() {
+    public PublicKeyAlgorithm getAlgorithm() {
         return algorithm;
     }
 
-    public ByteString getGateway() {
+    public Object getGateway() {
         return gateway;
     }
 

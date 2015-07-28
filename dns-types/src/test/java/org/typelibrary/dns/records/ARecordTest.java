@@ -47,7 +47,7 @@ public class ARecordTest extends AbstractRecordTest {
     public void testAddressTooShort() {
         try {
             ByteString address = ByteString.from( 1, 2, 3 );
-            AAAARecord r = new AAAARecord(STD_NAME, STD_CLASS, STD_TTL, address);
+            ARecord r = new ARecord(STD_NAME, STD_CLASS, STD_TTL, address);
             Assert.fail("Expected exception because address is too short. addr=" + r);
         } catch (IllegalArgumentException e) {
             // Expected
@@ -58,7 +58,7 @@ public class ARecordTest extends AbstractRecordTest {
     public void testAddressTooLong() {
         try {
             ByteString address = ByteString.from( 1, 2, 3, 4, 5 );
-            AAAARecord r = new AAAARecord(STD_NAME, STD_CLASS, STD_TTL, address);
+            ARecord r = new ARecord(STD_NAME, STD_CLASS, STD_TTL, address);
             Assert.fail("Expected exception because address is too long. addr=" + r);
         } catch (IllegalArgumentException e) {
             // Expected
@@ -69,7 +69,7 @@ public class ARecordTest extends AbstractRecordTest {
     public void testAddressNull() {
         try {
             ByteString address = null;
-            AAAARecord r = new AAAARecord(STD_NAME, STD_CLASS, STD_TTL, address);
+            ARecord r = new ARecord(STD_NAME, STD_CLASS, STD_TTL, address);
             Assert.fail("Expected exception because address is too short. addr=" + r);
         } catch (IllegalArgumentException e) {
             // Expected

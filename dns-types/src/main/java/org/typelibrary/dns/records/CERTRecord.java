@@ -16,6 +16,7 @@
 package org.typelibrary.dns.records;
 
 import org.typelibrary.binarystrings.ByteString;
+import org.typelibrary.dns.Algorithm;
 import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
@@ -24,11 +25,11 @@ public final class CERTRecord extends Record {
 
     private final short type;
     private final short keyTag;
-    private final byte algorithm;
+    private final Algorithm algorithm;
     private final ByteString certificate;
 
     public CERTRecord(Name name, short recordClass, int timeToLive, short type,
-            short keyTag, byte algorithm, ByteString certificate) {
+            short keyTag, Algorithm algorithm, ByteString certificate) {
         super(name, RecordType.CERT, recordClass, timeToLive);
         if (certificate == null)
             throw new IllegalArgumentException("Digest cannot be null.");
@@ -46,7 +47,7 @@ public final class CERTRecord extends Record {
         return keyTag;
     }
 
-    public byte getAlgorithm() {
+    public Algorithm getAlgorithm() {
         return algorithm;
     }
 

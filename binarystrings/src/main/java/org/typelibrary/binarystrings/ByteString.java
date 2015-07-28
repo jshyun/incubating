@@ -45,13 +45,14 @@ public final class ByteString {
         this.offset = 0;
         this.length = source.remaining();
         this.string = new byte[this.length];
+        int originalPosition = source.position();
         if (source.hasArray()) {
             byte[] array = source.array();
             System.arraycopy(array, source.arrayOffset() + source.position(), this.string, 0, this.length);
         } else {
             source.get(string, 0, this.length);
         }
-        source.position(source.position() + this.length);
+        source.position(originalPosition + this.length);
     }
 
     public ByteString(ByteBuffer source, int length) {
