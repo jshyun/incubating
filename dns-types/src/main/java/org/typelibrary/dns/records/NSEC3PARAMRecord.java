@@ -15,6 +15,7 @@
  */
 package org.typelibrary.dns.records;
 
+import org.typelibrary.binarystrings.ByteString;
 import org.typelibrary.dns.Algorithm;
 import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
@@ -25,16 +26,20 @@ public final class NSEC3PARAMRecord extends Record {
     private final Algorithm algorithm;
     private final byte flags;
     private final short iterations;
-    private final byte saltLength;
-    private final int salt;
+    private final ByteString salt;
 
     public NSEC3PARAMRecord(Name name, short recordClass, int timeToLive, Algorithm algorithm,
-            byte flags, short iterations, byte saltLength, int salt) {
+            byte flags, short iterations, ByteString salt) {
         super(name, RecordType.NSEC3PARAM, recordClass, timeToLive);
+        if (algorithm == null)
+            throw new IllegalArgumentException("Algorithm cannot be null.");
+        if (salt == null)
+            throw new IllegalArgumentException("Salt cannot be null.");
+        if (salt.length() > 255)
+            throw new IllegalArgumentException("Salt cannot be > 255 bytes.");
         this.algorithm = algorithm;
         this.flags = flags;
         this.iterations = iterations;
-        this.saltLength = saltLength;
         this.salt = salt;
     }
 
@@ -50,18 +55,14 @@ public final class NSEC3PARAMRecord extends Record {
         return iterations;
     }
 
-    public byte getSaltLength() {
-        return saltLength;
-    }
-
-    public int getSalt() {
+    public ByteString getSalt() {
         return salt;
     }
 
     @Override
     public String toString() {
         return super.toString() + ", algorithm=" + algorithm + ", flags=" + flags + ", iterations="
-                + iterations + ", saltLength=" + saltLength + ", salt=" + salt;
+                + iterations + ", salt=" + salt;
     }
 
 }

@@ -26,24 +26,30 @@ public final class NSEC3Record extends Record {
     private final Algorithm algorithm;
     private final byte flags;
     private final short iterations;
-    private final byte saltLength;
-    private final int salt;
-    private final byte hashLength;
-    private final int nextHashedOwnerName;
+    private final ByteString salt;
+    private final ByteString nextHashedOwnerName;
     private final ByteString typeBitmaps;
 
     public NSEC3Record(Name name, short recordClass, int timeToLive, Algorithm algorithm,
-            byte flags, short iterations, byte saltLength, int salt, byte hashLength,
-            int nextHashedOwnerName, ByteString typeBitmaps) {
+            byte flags, short iterations, ByteString salt, 
+            ByteString nextHashedOwnerName, ByteString typeBitmaps) {
         super(name, RecordType.NSEC3, recordClass, timeToLive);
+        if (algorithm == null)
+            throw new IllegalArgumentException("Algorithm cannot be null.");
+        if (salt == null)
+            throw new IllegalArgumentException("Salt cannot be null.");
+        if (salt.length() > 255)
+            throw new IllegalArgumentException("Salt cannot be > 255 bytes.");
+        if (nextHashedOwnerName == null)
+            throw new IllegalArgumentException("Next hashed owner name cannot be null.");
+        if (nextHashedOwnerName.length() > 255)
+            throw new IllegalArgumentException("Next hashed owner name cannot be > 255 bytes.");
         if (typeBitmaps == null)
             throw new IllegalArgumentException("Type bitmaps cannot be null.");
         this.algorithm = algorithm;
         this.flags = flags;
         this.iterations = iterations;
-        this.saltLength = saltLength;
         this.salt = salt;
-        this.hashLength = hashLength;
         this.nextHashedOwnerName = nextHashedOwnerName;
         this.typeBitmaps = typeBitmaps;
     }
@@ -60,19 +66,11 @@ public final class NSEC3Record extends Record {
         return iterations;
     }
 
-    public byte getSaltLength() {
-        return saltLength;
-    }
-
-    public int getSalt() {
+    public ByteString getSalt() {
         return salt;
     }
 
-    public byte getHashLength() {
-        return hashLength;
-    }
-
-    public int getNextHashedOwnerName() {
+    public ByteString getNextHashedOwnerName() {
         return nextHashedOwnerName;
     }
 
@@ -83,8 +81,8 @@ public final class NSEC3Record extends Record {
     @Override
     public String toString() {
         return super.toString() + ", algorithm=" + algorithm + ", flags=" + flags + ", iterations="
-                + iterations + ", saltLength=" + saltLength + ", salt=" + salt + ", hashLength="
-                + hashLength + ", nextHashedOwnerName=" + nextHashedOwnerName + ", typeBitmaps="
+                + iterations + ", salt=" + salt 
+                + ", nextHashedOwnerName=" + nextHashedOwnerName + ", typeBitmaps="
                 + typeBitmaps + "]";
     }
 

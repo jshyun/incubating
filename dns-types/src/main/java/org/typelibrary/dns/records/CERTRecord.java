@@ -17,29 +17,34 @@ package org.typelibrary.dns.records;
 
 import org.typelibrary.binarystrings.ByteString;
 import org.typelibrary.dns.Algorithm;
+import org.typelibrary.dns.CertificateType;
 import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
 public final class CERTRecord extends Record {
 
-    private final short type;
+    private final CertificateType type;
     private final short keyTag;
     private final Algorithm algorithm;
     private final ByteString certificate;
 
-    public CERTRecord(Name name, short recordClass, int timeToLive, short type,
+    public CERTRecord(Name name, short recordClass, int timeToLive, CertificateType type,
             short keyTag, Algorithm algorithm, ByteString certificate) {
         super(name, RecordType.CERT, recordClass, timeToLive);
+        if (type == null)
+            throw new IllegalArgumentException("Certificate type cannot be null.");
+        if (algorithm == null)
+            throw new IllegalArgumentException("Algorithm cannot be null.");
         if (certificate == null)
-            throw new IllegalArgumentException("Digest cannot be null.");
+            throw new IllegalArgumentException("Certificate cannot be null.");
         this.type = type;
         this.keyTag = keyTag;
         this.algorithm = algorithm;
         this.certificate = certificate;
     }
 
-    public short getType() {
+    public CertificateType getType() {
         return type;
     }
 

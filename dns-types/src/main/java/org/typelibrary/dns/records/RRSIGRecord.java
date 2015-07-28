@@ -23,7 +23,7 @@ import org.typelibrary.dns.RecordType;
 
 public final class RRSIGRecord extends Record {
 
-    private final short typeCovered;
+    private final RecordType typeCovered;
     private final Algorithm algorithm;
     private final byte labels;
     private final int originalTtl;
@@ -33,10 +33,12 @@ public final class RRSIGRecord extends Record {
     private final Name signer;
     private final ByteString publicKey;
 
-    public RRSIGRecord(Name name, short recordClass, int timeToLive, short typeCovered,
+    public RRSIGRecord(Name name, short recordClass, int timeToLive, RecordType typeCovered,
             Algorithm algorithm, byte labels, int originalTtl, int signatureExpiration,
             int signatureInception, short keyTag, Name signer, ByteString publicKey) {
         super(name, RecordType.RRSIG, recordClass, timeToLive);
+        if (typeCovered == null)
+            throw new IllegalArgumentException("Type covered cannot be null.");
         if (signer == null)
             throw new IllegalArgumentException("Signer cannot be null.");
         if (publicKey == null)
@@ -52,7 +54,7 @@ public final class RRSIGRecord extends Record {
         this.publicKey = publicKey;
     }
 
-    public short getTypeCovered() {
+    public RecordType getTypeCovered() {
         return typeCovered;
     }
 
