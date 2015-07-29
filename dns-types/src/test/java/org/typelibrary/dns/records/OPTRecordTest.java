@@ -15,36 +15,33 @@
  */
 package org.typelibrary.dns.records;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.typelibrary.binarystrings.ByteString;
+import org.typelibrary.dns.records.OPTRecord.Option;
 
-public class DHCIDRecordTest extends AbstractRecordTest {
+public class OPTRecordTest extends AbstractRecordTest {
 
     @Test 
     public void testBasic() {
 
-        final ByteString data = ByteString.from(4, 5, 6, 7, 8, 9);
-
-        DHCIDRecord r = new DHCIDRecord(STD_NAME, STD_CLASS, STD_TTL, data);
+        final Option option1 = new Option((short)1, ByteString.from(1, 2));
+        final Option option2 = new Option((short)3, ByteString.from(1, 2, 3, 4));
+        final Option option3 = new Option((short)5, ByteString.from(1, 2, 3, 4, 5, 6));
+        
+        OPTRecord r = new OPTRecord(STD_NAME, STD_CLASS, STD_TTL, Arrays.asList(option1, option2,
+                option3));
         assertBaseRecord(STD_NAME, STD_CLASS, STD_TTL, r);
         
-        Assert.assertEquals(data, r.getData());
-
-        try {
-            new DHCIDRecord(null, STD_CLASS, STD_TTL, data);
-            Assert.fail("Expected IllegalArgumentException.");
-        } catch (IllegalArgumentException e) {
-            // Expected
-        }
-
-        try {
-            new DHCIDRecord(STD_NAME, STD_CLASS, STD_TTL, null);
-            Assert.fail("Expected IllegalArgumentException.");
-        } catch (IllegalArgumentException e) {
-            // Expected
-        }
-
+        List<Option> options = r.getOptions();
+        Assert.assertNotNull(options);
+        Assert.assertEquals(3, options.size());
+        Assert.assertEquals(option1, options.get(0));
+        Assert.assertEquals(option2, options.get(1));
+        Assert.assertEquals(option3, options.get(2));
     }
 
 }

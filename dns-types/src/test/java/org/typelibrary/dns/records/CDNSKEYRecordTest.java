@@ -39,6 +39,34 @@ public class CDNSKEYRecordTest extends AbstractRecordTest {
         Assert.assertEquals(algorithm, r.getAlgorithm());
         Assert.assertEquals(publicKey, r.getPublicKey());
         
+        try {
+            new CDNSKEYRecord(null, STD_CLASS, STD_TTL, flags, protocol, algorithm, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new CDNSKEYRecord(STD_NAME, STD_CLASS, STD_TTL, flags, null, algorithm, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new CDNSKEYRecord(STD_NAME, STD_CLASS, STD_TTL, flags, protocol, null, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new CDNSKEYRecord(STD_NAME, STD_CLASS, STD_TTL, flags, protocol, algorithm, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

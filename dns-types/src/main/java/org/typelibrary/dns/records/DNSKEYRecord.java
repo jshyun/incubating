@@ -32,6 +32,10 @@ public final class DNSKEYRecord extends Record {
     public DNSKEYRecord(Name name, short recordClass, int timeToLive, short flags,
             Protocol protocol, Algorithm algorithm, ByteString publicKey) {
         super(name, RecordType.DNSKEY, recordClass, timeToLive);
+        if (protocol == null)
+            throw new IllegalArgumentException("Protocol cannot be null.");
+        if (algorithm == null)
+            throw new IllegalArgumentException("Algorithm cannot be null.");
         if (publicKey == null)
             throw new IllegalArgumentException("Public key cannot be null.");
         this.flags = flags;

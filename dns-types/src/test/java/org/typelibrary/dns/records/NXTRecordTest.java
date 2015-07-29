@@ -18,55 +18,38 @@ package org.typelibrary.dns.records;
 import org.junit.Assert;
 import org.junit.Test;
 import org.typelibrary.binarystrings.ByteString;
-import org.typelibrary.dns.Algorithm;
-import org.typelibrary.dns.Protocol;
+import org.typelibrary.dns.Name;
 
-public class DNSKEYRecordTest extends AbstractRecordTest {
+public class NXTRecordTest extends AbstractRecordTest {
 
     @Test 
     public void testBasic() {
 
-        final short flags = 1;
-        final Protocol protocol = Protocol.DNSSEC;
-        final Algorithm algorithm = Algorithm.RSASHA1;
-        final ByteString publicKey = ByteString.from(4, 5, 6, 7, 8, 9);
-        
-        DNSKEYRecord r = new DNSKEYRecord(STD_NAME, STD_CLASS, STD_TTL, flags,
-                protocol, algorithm, publicKey);
+        final Name nextName = Name.fromString("ns1.amazon.com.");
+        final ByteString typeBitmap = ByteString.from(4, 5, 6, 7, 8, 9);
+
+        NXTRecord r = new NXTRecord(STD_NAME, STD_CLASS, STD_TTL, nextName, typeBitmap);
         assertBaseRecord(STD_NAME, STD_CLASS, STD_TTL, r);
         
-        Assert.assertEquals(flags, r.getFlags());
-        Assert.assertEquals(protocol, r.getProtocol());
-        Assert.assertEquals(algorithm, r.getAlgorithm());
-        Assert.assertEquals(publicKey, r.getPublicKey());
+        Assert.assertEquals(nextName, r.getNextDomainName());
+        Assert.assertEquals(typeBitmap, r.getTypeBitmap());
 
         try {
-            new DNSKEYRecord(null, STD_CLASS, STD_TTL, flags,
-                    protocol, algorithm, publicKey);
+            new NXTRecord(null, STD_CLASS, STD_TTL, nextName, typeBitmap);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new DNSKEYRecord(STD_NAME, STD_CLASS, STD_TTL, flags,
-                    null, algorithm, publicKey);
+            new NXTRecord(STD_NAME, STD_CLASS, STD_TTL, null, typeBitmap);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new DNSKEYRecord(STD_NAME, STD_CLASS, STD_TTL, flags,
-                    protocol, null, publicKey);
-            Assert.fail("Expected IllegalArgumentException.");
-        } catch (IllegalArgumentException e) {
-            // Expected
-        }
-
-        try {
-            new DNSKEYRecord(STD_NAME, STD_CLASS, STD_TTL, flags,
-                    protocol, algorithm, null);
+            new NXTRecord(STD_NAME, STD_CLASS, STD_TTL, nextName, null);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected

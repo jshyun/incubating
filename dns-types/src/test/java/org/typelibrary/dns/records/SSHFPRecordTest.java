@@ -18,46 +18,35 @@ package org.typelibrary.dns.records;
 import org.junit.Assert;
 import org.junit.Test;
 import org.typelibrary.binarystrings.ByteString;
-import org.typelibrary.dns.Algorithm;
 
-public class NSEC3PARAMRecordTest extends AbstractRecordTest {
+public class SSHFPRecordTest extends AbstractRecordTest {
 
     @Test 
     public void testBasic() {
 
-        final Algorithm algorithm = Algorithm.DSA;
-        final byte flags = 1;
-        final short iterations = 2;
-        final ByteString salt = ByteString.from(1, 2, 3);
+        final byte algorithm = 1;
+        final byte fingerprintType = 2;
+        final ByteString fingerprint = ByteString.from(1, 2, 3, 4, 5, 6);
         
-        NSEC3PARAMRecord r = new NSEC3PARAMRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm,
-                flags, iterations, salt);
+        SSHFPRecord r = new SSHFPRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm, fingerprintType,
+                fingerprint);
         assertBaseRecord(STD_NAME, STD_CLASS, STD_TTL, r);
         
         Assert.assertEquals(algorithm, r.getAlgorithm());
-        Assert.assertEquals(flags, r.getFlags());
-        Assert.assertEquals(iterations, r.getIterations());
-        Assert.assertEquals(salt, r.getSalt());
+        Assert.assertEquals(fingerprintType, r.getFpType());
+        Assert.assertEquals(fingerprint, r.getFingerprint());
 
         try {
-            new NSEC3PARAMRecord(null, STD_CLASS, STD_TTL, algorithm,
-                    flags, iterations, salt);
+            new SSHFPRecord(null, STD_CLASS, STD_TTL, algorithm, fingerprintType,
+                    fingerprint);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new NSEC3PARAMRecord(STD_NAME, STD_CLASS, STD_TTL, null,
-                    flags, iterations, salt);
-            Assert.fail("Expected IllegalArgumentException.");
-        } catch (IllegalArgumentException e) {
-            // Expected
-        }
-
-        try {
-            new NSEC3PARAMRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm,
-                    flags, iterations, null);
+            new SSHFPRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm, fingerprintType,
+                    null);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected

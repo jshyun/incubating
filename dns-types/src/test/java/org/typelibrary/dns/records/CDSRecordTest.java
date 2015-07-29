@@ -39,6 +39,39 @@ public class CDSRecordTest extends AbstractRecordTest {
         Assert.assertEquals(algorithm, r.getAlgorithm());
         Assert.assertEquals(digestType, r.getDigestType());
         Assert.assertEquals(digest, r.getDigest());
+        
+        try {
+            new CDSRecord(null, STD_CLASS, STD_TTL, keyTag, algorithm,
+                    digestType, digest);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new CDSRecord(STD_NAME, STD_CLASS, STD_TTL, keyTag, null,
+                    digestType, digest);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new CDSRecord(STD_NAME, STD_CLASS, STD_TTL, keyTag, algorithm,
+                    null, digest);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new CDSRecord(STD_NAME, STD_CLASS, STD_TTL, keyTag, algorithm,
+                    digestType, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

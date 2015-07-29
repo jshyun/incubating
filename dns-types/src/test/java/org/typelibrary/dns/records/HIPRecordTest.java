@@ -48,6 +48,46 @@ public class HIPRecordTest extends AbstractRecordTest {
         Assert.assertEquals(server2, servers.get(1));
         Assert.assertEquals(server3, servers.get(2));
 
+        try {
+            new HIPRecord(null, STD_CLASS, STD_TTL, algorithm,
+                    hit, publicKey, Arrays.asList(server1, server2, server3));
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new HIPRecord(STD_NAME, STD_CLASS, STD_TTL, null,
+                    hit, publicKey, Arrays.asList(server1, server2, server3));
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new HIPRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm,
+                    null, publicKey, Arrays.asList(server1, server2, server3));
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new HIPRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm,
+                    hit, null, Arrays.asList(server1, server2, server3));
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new HIPRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm,
+                    hit, publicKey, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

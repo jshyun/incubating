@@ -45,6 +45,38 @@ public class TKEYRecordTest extends AbstractRecordTest {
         Assert.assertEquals(keyData, r.getKeyData());
         Assert.assertEquals(otherData, r.getOtherData());
 
+        try {
+            new TKEYRecord(null, STD_CLASS, STD_TTL, algorithm, inception, expiration,
+                    mode, keySize, keyData, otherData);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new TKEYRecord(STD_NAME, STD_CLASS, STD_TTL, null, inception, expiration,
+                    mode, keySize, keyData, otherData);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new TKEYRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm, inception, expiration,
+                    mode, keySize, null, otherData);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new TKEYRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm, inception, expiration,
+                    mode, keySize, keyData, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

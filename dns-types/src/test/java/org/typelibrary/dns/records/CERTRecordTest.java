@@ -39,6 +39,39 @@ public class CERTRecordTest extends AbstractRecordTest {
         Assert.assertEquals(keyTag, r.getKeyTag());
         Assert.assertEquals(algorithm, r.getAlgorithm());
         Assert.assertEquals(certificate, r.getCertificate());
+        
+        try {
+            new CERTRecord(null, STD_CLASS, STD_TTL, type, keyTag, algorithm,
+                    certificate);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new CERTRecord(STD_NAME, STD_CLASS, STD_TTL, null, keyTag, algorithm,
+                    certificate);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new CERTRecord(STD_NAME, STD_CLASS, STD_TTL, type, keyTag, null,
+                    certificate);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new CERTRecord(STD_NAME, STD_CLASS, STD_TTL, type, keyTag, algorithm,
+                    null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

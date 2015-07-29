@@ -42,6 +42,21 @@ public class AAAARecordTest extends AbstractRecordTest {
         String string = "name="+STD_NAME+", type="+RecordType.AAAA+", class="+STD_CLASS+", ttl="+STD_TTL+", address=";
         String ip6Addr = "[0001:0203:0405:0607:0809:0A0B:0C0D:0E0F]";
         Assert.assertEquals(string + ip6Addr, r.toString());
+        
+        try {
+            new AAAARecord(null, STD_CLASS, STD_TTL, STD_ADDRESS);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new AAAARecord(STD_NAME, STD_CLASS, STD_TTL, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
     
     @Test

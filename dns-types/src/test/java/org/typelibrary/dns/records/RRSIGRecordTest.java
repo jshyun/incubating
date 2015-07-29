@@ -51,6 +51,52 @@ public class RRSIGRecordTest extends AbstractRecordTest {
         Assert.assertEquals(keyTag, r.getKeyTag());
         Assert.assertEquals(signer, r.getSigner());
         Assert.assertEquals(publicKey, r.getPublicKey());
+        
+        try {
+            new RRSIGRecord(null, STD_CLASS, STD_TTL, typeCovered,
+                    algorithm, labels, originalTtl, signatureExpiration, signatureInception,
+                    keyTag, signer, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new RRSIGRecord(STD_NAME, STD_CLASS, STD_TTL, null,
+                    algorithm, labels, originalTtl, signatureExpiration, signatureInception,
+                    keyTag, signer, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new RRSIGRecord(STD_NAME, STD_CLASS, STD_TTL, typeCovered,
+                    null, labels, originalTtl, signatureExpiration, signatureInception,
+                    keyTag, signer, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new RRSIGRecord(STD_NAME, STD_CLASS, STD_TTL, typeCovered,
+                    algorithm, labels, originalTtl, signatureExpiration, signatureInception,
+                    keyTag, null, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new RRSIGRecord(STD_NAME, STD_CLASS, STD_TTL, typeCovered,
+                    algorithm, labels, originalTtl, signatureExpiration, signatureInception,
+                    keyTag, signer, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

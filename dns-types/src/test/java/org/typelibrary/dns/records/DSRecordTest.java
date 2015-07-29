@@ -40,6 +40,38 @@ public class DSRecordTest extends AbstractRecordTest {
         Assert.assertEquals(digestType, r.getDigestType());
         Assert.assertEquals(digest, r.getDigest());
 
+        try {
+            new DSRecord(null, STD_CLASS, STD_TTL, keyTag,
+                    algorithm, digestType, digest);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new DSRecord(STD_NAME, STD_CLASS, STD_TTL, keyTag,
+                    null, digestType, digest);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new DSRecord(STD_NAME, STD_CLASS, STD_TTL, keyTag,
+                    algorithm, null, digest);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new DSRecord(STD_NAME, STD_CLASS, STD_TTL, keyTag,
+                    algorithm, digestType, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

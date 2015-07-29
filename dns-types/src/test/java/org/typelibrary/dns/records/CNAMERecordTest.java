@@ -31,6 +31,20 @@ public class CNAMERecordTest extends AbstractRecordTest {
         
         Assert.assertEquals(cname, r.getCName());
 
+        try {
+            new CNAMERecord(null, STD_CLASS, STD_TTL, cname);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new CNAMERecord(STD_NAME, STD_CLASS, STD_TTL, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

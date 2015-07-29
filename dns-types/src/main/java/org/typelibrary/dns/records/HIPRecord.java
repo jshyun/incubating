@@ -35,6 +35,8 @@ public final class HIPRecord extends Record {
     public HIPRecord(Name name, short recordClass, int timeToLive, PublicKeyAlgorithm algorithm,
             ByteString hit, ByteString publicKey, List<Name> rendezvousServers) {
         super(name, RecordType.HIP, recordClass, timeToLive);
+        if (algorithm == null)
+            throw new IllegalArgumentException("Algorithm cannot be null.");
         if (hit == null)
             throw new IllegalArgumentException("Hit cannot be null.");
         if (hit.length() > 255)

@@ -33,6 +33,20 @@ public class KXRecordTest extends AbstractRecordTest {
         Assert.assertEquals(precedence, r.getPreference());
         Assert.assertEquals(exchange, r.getExchange());
 
+        try {
+            new KXRecord(null, STD_CLASS, STD_TTL, precedence, exchange);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new KXRecord(STD_NAME, STD_CLASS, STD_TTL, precedence, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

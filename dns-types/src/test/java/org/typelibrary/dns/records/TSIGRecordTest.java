@@ -42,6 +42,30 @@ public class TSIGRecordTest extends AbstractRecordTest {
         Assert.assertEquals(originalId, r.getOriginalId());
         Assert.assertEquals(otherData, r.getOtherData());
 
+        try {
+            new TSIGRecord(null, STD_CLASS, STD_TTL, algorithm, timeSigned, fudge,
+                    mac, originalId, otherData);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new TSIGRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm, timeSigned, fudge,
+                    null, originalId, otherData);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new TSIGRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm, timeSigned, fudge,
+                    mac, originalId, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

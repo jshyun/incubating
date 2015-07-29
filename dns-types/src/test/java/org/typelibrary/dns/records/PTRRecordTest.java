@@ -19,27 +19,27 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.typelibrary.dns.Name;
 
-public class DNAMERecordTest extends AbstractRecordTest {
+public class PTRRecordTest extends AbstractRecordTest {
 
     @Test 
     public void testBasic() {
 
-        final Name dname = Name.fromString("myelb.us-west.aws.amazon.com.");
-
-        DNAMERecord r = new DNAMERecord(STD_NAME, STD_CLASS, STD_TTL, dname);
+        final Name ptr = Name.fromString("amazon.dyndns.org.");
+        
+        PTRRecord r = new PTRRecord(STD_NAME, STD_CLASS, STD_TTL, ptr);
         assertBaseRecord(STD_NAME, STD_CLASS, STD_TTL, r);
         
-        Assert.assertEquals(dname, r.getTarget());
+        Assert.assertEquals(ptr, r.getDomainName());
 
         try {
-            new DNAMERecord(null, STD_CLASS, STD_TTL, dname);
+            new PTRRecord(null, STD_CLASS, STD_TTL, ptr);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new DNAMERecord(STD_NAME, STD_CLASS, STD_TTL, null);
+            new PTRRecord(STD_NAME, STD_CLASS, STD_TTL, null);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected

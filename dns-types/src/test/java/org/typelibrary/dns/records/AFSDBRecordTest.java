@@ -33,6 +33,20 @@ public class AFSDBRecordTest extends AbstractRecordTest {
         Assert.assertEquals(subtype, r.getSubtype());
         Assert.assertEquals(hostname, r.getHostname());
 
+        try {
+            new AFSDBRecord(null, STD_CLASS, STD_TTL, subtype, hostname);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new AFSDBRecord(STD_NAME, STD_CLASS, STD_TTL, subtype, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

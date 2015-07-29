@@ -44,6 +44,30 @@ public class IPSECKEYRecordTest extends AbstractRecordTest {
         Assert.assertEquals(gateway, r.getGateway());
         Assert.assertEquals(publicKey, r.getPublicKey());
 
+        try {
+            new IPSECKEYRecord(null, STD_CLASS, STD_TTL, precedence, algorithm,
+                    gateway, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new IPSECKEYRecord(STD_NAME, STD_CLASS, STD_TTL, precedence, null,
+                    gateway, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new IPSECKEYRecord(STD_NAME, STD_CLASS, STD_TTL, precedence, algorithm,
+                    gateway, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

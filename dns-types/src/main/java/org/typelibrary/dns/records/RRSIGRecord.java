@@ -39,6 +39,8 @@ public final class RRSIGRecord extends Record {
         super(name, RecordType.RRSIG, recordClass, timeToLive);
         if (typeCovered == null)
             throw new IllegalArgumentException("Type covered cannot be null.");
+        if (algorithm == null)
+            throw new IllegalArgumentException("Algorithm cannot be null.");
         if (signer == null)
             throw new IllegalArgumentException("Signer cannot be null.");
         if (publicKey == null)

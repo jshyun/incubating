@@ -33,6 +33,20 @@ public class MXRecordTest extends AbstractRecordTest {
         Assert.assertEquals(precedence, r.getPreference());
         Assert.assertEquals(exchange, r.getExchange());
 
+        try {
+            new MXRecord(null, STD_CLASS, STD_TTL, precedence, exchange);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new MXRecord(STD_NAME, STD_CLASS, STD_TTL, precedence, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

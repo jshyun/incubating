@@ -43,6 +43,8 @@ public final class IPSECKEYRecord extends Record {
     public IPSECKEYRecord(Name name, short recordClass, int timeToLive, byte precedence,
             PublicKeyAlgorithm algorithm, InetAddress gateway, ByteString publicKey) {
         super(name, RecordType.IPSECKEY, recordClass, timeToLive);
+        if (algorithm == null)
+            throw new IllegalArgumentException("Algorithm cannot be null.");
         if (gateway == null)
             throw new IllegalArgumentException("Gateway cannot be null.");
         if (publicKey == null)
@@ -68,6 +70,10 @@ public final class IPSECKEYRecord extends Record {
     private IPSECKEYRecord(Name name, short recordClass, int timeToLive, byte precedence,
             GatewayType gatewayType, PublicKeyAlgorithm algorithm, Object gateway, ByteString publicKey) {
         super(name, RecordType.IPSECKEY, recordClass, timeToLive);
+        if (gatewayType == null)
+            throw new IllegalArgumentException("Gateway type cannot be null.");
+        if (algorithm == null)
+            throw new IllegalArgumentException("Algorithm cannot be null.");
         if (gateway == null)
             throw new IllegalArgumentException("Gateway cannot be null.");
         if (publicKey == null)

@@ -15,49 +15,40 @@
  */
 package org.typelibrary.dns.records;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.typelibrary.binarystrings.ByteString;
-import org.typelibrary.dns.Algorithm;
 
-public class NSEC3PARAMRecordTest extends AbstractRecordTest {
+public class TXTRecordTest extends AbstractRecordTest {
 
     @Test 
     public void testBasic() {
 
-        final Algorithm algorithm = Algorithm.DSA;
-        final byte flags = 1;
-        final short iterations = 2;
-        final ByteString salt = ByteString.from(1, 2, 3);
+        final ByteString txt1 = ByteString.from(1,2,3,4,5,6);
+        final ByteString txt2 = ByteString.from(7,8,9);
+        final ByteString txt3 = ByteString.from(10,11,12,13,14,15,16);
         
-        NSEC3PARAMRecord r = new NSEC3PARAMRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm,
-                flags, iterations, salt);
+        TXTRecord r = new TXTRecord(STD_NAME, STD_CLASS, STD_TTL, Arrays.asList(txt1, txt2, txt3));
         assertBaseRecord(STD_NAME, STD_CLASS, STD_TTL, r);
         
-        Assert.assertEquals(algorithm, r.getAlgorithm());
-        Assert.assertEquals(flags, r.getFlags());
-        Assert.assertEquals(iterations, r.getIterations());
-        Assert.assertEquals(salt, r.getSalt());
+        List<ByteString> txts = r.getText();
+        Assert.assertEquals(3, txts.size());
+        Assert.assertEquals(txt1, txts.get(0));
+        Assert.assertEquals(txt2, txts.get(1));
+        Assert.assertEquals(txt3, txts.get(2));
 
         try {
-            new NSEC3PARAMRecord(null, STD_CLASS, STD_TTL, algorithm,
-                    flags, iterations, salt);
+            new TXTRecord(null, STD_CLASS, STD_TTL, Arrays.asList(txt1, txt2, txt3));
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
-
+        
         try {
-            new NSEC3PARAMRecord(STD_NAME, STD_CLASS, STD_TTL, null,
-                    flags, iterations, salt);
-            Assert.fail("Expected IllegalArgumentException.");
-        } catch (IllegalArgumentException e) {
-            // Expected
-        }
-
-        try {
-            new NSEC3PARAMRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm,
-                    flags, iterations, null);
+            new TXTRecord(STD_NAME, STD_CLASS, STD_TTL, null);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected

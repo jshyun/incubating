@@ -19,27 +19,36 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.typelibrary.dns.Name;
 
-public class DNAMERecordTest extends AbstractRecordTest {
+public class SRVRecordTest extends AbstractRecordTest {
 
     @Test 
     public void testBasic() {
 
-        final Name dname = Name.fromString("myelb.us-west.aws.amazon.com.");
-
-        DNAMERecord r = new DNAMERecord(STD_NAME, STD_CLASS, STD_TTL, dname);
+        final short priority = 1;
+        final short weight = 2;
+        final short port = 3;
+        final Name target = Name.fromString("smtp.amazon.com.");
+        
+        SRVRecord r = new SRVRecord(STD_NAME, STD_CLASS, STD_TTL, priority, weight, port,
+                target);
         assertBaseRecord(STD_NAME, STD_CLASS, STD_TTL, r);
         
-        Assert.assertEquals(dname, r.getTarget());
+        Assert.assertEquals(priority, r.getPriority());
+        Assert.assertEquals(weight, r.getWeight());
+        Assert.assertEquals(port, r.getPort());
+        Assert.assertEquals(target, r.getTarget());
 
         try {
-            new DNAMERecord(null, STD_CLASS, STD_TTL, dname);
+            new SRVRecord(null, STD_CLASS, STD_TTL, priority, weight, port,
+                    target);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new DNAMERecord(STD_NAME, STD_CLASS, STD_TTL, null);
+            new SRVRecord(STD_NAME, STD_CLASS, STD_TTL, priority, weight, port,
+                    null);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected

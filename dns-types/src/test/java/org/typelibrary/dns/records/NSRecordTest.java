@@ -19,27 +19,27 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.typelibrary.dns.Name;
 
-public class DNAMERecordTest extends AbstractRecordTest {
+public class NSRecordTest extends AbstractRecordTest {
 
     @Test 
     public void testBasic() {
 
-        final Name dname = Name.fromString("myelb.us-west.aws.amazon.com.");
-
-        DNAMERecord r = new DNAMERecord(STD_NAME, STD_CLASS, STD_TTL, dname);
+        final Name ns = Name.fromString("ns1.amazon.com.");
+        
+        NSRecord r = new NSRecord(STD_NAME, STD_CLASS, STD_TTL, ns);
         assertBaseRecord(STD_NAME, STD_CLASS, STD_TTL, r);
         
-        Assert.assertEquals(dname, r.getTarget());
+        Assert.assertEquals(ns, r.getNameServer());
 
         try {
-            new DNAMERecord(null, STD_CLASS, STD_TTL, dname);
+            new NSRecord(null, STD_CLASS, STD_TTL, ns);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new DNAMERecord(STD_NAME, STD_CLASS, STD_TTL, null);
+            new NSRecord(STD_NAME, STD_CLASS, STD_TTL, null);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected

@@ -41,6 +41,21 @@ public class ARecordTest extends AbstractRecordTest {
 
         String string = "name="+STD_NAME+", type="+RecordType.A+", class="+STD_CLASS+", ttl="+STD_TTL+", address=";
         Assert.assertEquals(string + "0.1.2.3", r.toString());
+        
+        try {
+            new ARecord(null, STD_CLASS, STD_TTL, STD_ADDRESS);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new ARecord(STD_NAME, STD_CLASS, STD_TTL, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
     @Test

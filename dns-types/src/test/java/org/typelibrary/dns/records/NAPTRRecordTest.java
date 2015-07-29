@@ -18,66 +18,66 @@ package org.typelibrary.dns.records;
 import org.junit.Assert;
 import org.junit.Test;
 import org.typelibrary.binarystrings.ByteString;
-import org.typelibrary.dns.Algorithm;
+import org.typelibrary.dns.Name;
 
-public class NSEC3RecordTest extends AbstractRecordTest {
+public class NAPTRRecordTest extends AbstractRecordTest {
 
     @Test 
     public void testBasic() {
 
-        final Algorithm algorithm = Algorithm.DSA;
-        final byte flags = 1;
-        final short iterations = 2;
-        final ByteString salt = ByteString.from(1, 2, 3);
-        final ByteString nextHashedOwnerName = ByteString.from(4, 5, 6, 7, 8);;
-        final ByteString typeBitmaps = ByteString.from(9, 8, 7, 6, 5, 4, 3, 2, 1);
-        
-        NSEC3Record r = new NSEC3Record(STD_NAME, STD_CLASS, STD_TTL, algorithm,
-                flags, iterations, salt, nextHashedOwnerName, typeBitmaps);
+        final short order = 1;
+        final short preference = 2;
+        final ByteString flags = ByteString.from(1, 2, 3, 4);
+        final ByteString services = ByteString.from(5, 6, 7, 8, 9);
+        final ByteString regexp = ByteString.from(0,1,2,3,4,5,6,7,8,9,10);
+        final Name replacement = Name.fromString("www.jet.com.");
+
+        NAPTRRecord r = new NAPTRRecord(STD_NAME, STD_CLASS, STD_TTL, order, preference, flags,
+                services, regexp, replacement);
         assertBaseRecord(STD_NAME, STD_CLASS, STD_TTL, r);
         
-        Assert.assertEquals(algorithm, r.getAlgorithm());
+        Assert.assertEquals(order, r.getOrder());
+        Assert.assertEquals(preference, r.getPreference());
         Assert.assertEquals(flags, r.getFlags());
-        Assert.assertEquals(iterations, r.getIterations());
-        Assert.assertEquals(salt, r.getSalt());
-        Assert.assertEquals(nextHashedOwnerName, r.getNextHashedOwnerName());
-        Assert.assertEquals(typeBitmaps, r.getTypeBitmaps());
+        Assert.assertEquals(services, r.getServices());
+        Assert.assertEquals(regexp, r.getRegexp());
+        Assert.assertEquals(replacement, r.getReplacement());
 
         try {
-            new NSEC3Record(null, STD_CLASS, STD_TTL, algorithm,
-                    flags, iterations, salt, nextHashedOwnerName, typeBitmaps);
+            new NAPTRRecord(null, STD_CLASS, STD_TTL, order, preference, flags,
+                    services, regexp, replacement);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new NSEC3Record(STD_NAME, STD_CLASS, STD_TTL, null,
-                    flags, iterations, salt, nextHashedOwnerName, typeBitmaps);
+            new NAPTRRecord(STD_NAME, STD_CLASS, STD_TTL, order, preference, null,
+                    services, regexp, replacement);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new NSEC3Record(STD_NAME, STD_CLASS, STD_TTL, algorithm,
-                    flags, iterations, null, nextHashedOwnerName, typeBitmaps);
+            new NAPTRRecord(STD_NAME, STD_CLASS, STD_TTL, order, preference, flags,
+                    null, regexp, replacement);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new NSEC3Record(STD_NAME, STD_CLASS, STD_TTL, algorithm,
-                    flags, iterations, salt, null, typeBitmaps);
+            new NAPTRRecord(STD_NAME, STD_CLASS, STD_TTL, order, preference, flags,
+                    services, null, replacement);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new NSEC3Record(STD_NAME, STD_CLASS, STD_TTL, algorithm,
-                    flags, iterations, salt, nextHashedOwnerName, null);
+            new NAPTRRecord(STD_NAME, STD_CLASS, STD_TTL, order, preference, flags,
+                    services, regexp, null);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected

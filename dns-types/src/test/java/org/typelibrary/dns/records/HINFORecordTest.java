@@ -33,6 +33,27 @@ public class HINFORecordTest extends AbstractRecordTest {
         Assert.assertEquals(cpu, r.getCpu());
         Assert.assertEquals(os, r.getOs());
 
+        try {
+            new HINFORecord(null, STD_CLASS, STD_TTL, cpu, os);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new HINFORecord(STD_NAME, STD_CLASS, STD_TTL, null, os);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new HINFORecord(STD_NAME, STD_CLASS, STD_TTL, cpu, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

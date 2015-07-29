@@ -17,47 +17,38 @@ package org.typelibrary.dns.records;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.typelibrary.binarystrings.ByteString;
-import org.typelibrary.dns.Algorithm;
+import org.typelibrary.dns.Name;
 
-public class NSEC3PARAMRecordTest extends AbstractRecordTest {
+public class RPRecordTest extends AbstractRecordTest {
 
     @Test 
     public void testBasic() {
 
-        final Algorithm algorithm = Algorithm.DSA;
-        final byte flags = 1;
-        final short iterations = 2;
-        final ByteString salt = ByteString.from(1, 2, 3);
-        
-        NSEC3PARAMRecord r = new NSEC3PARAMRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm,
-                flags, iterations, salt);
+        final Name mailbox = Name.fromString("smtp.amazon.com.");
+        final Name domain = Name.fromString("ec2.amazon.com.");
+
+        RPRecord r = new RPRecord(STD_NAME, STD_CLASS, STD_TTL, mailbox, domain);
         assertBaseRecord(STD_NAME, STD_CLASS, STD_TTL, r);
         
-        Assert.assertEquals(algorithm, r.getAlgorithm());
-        Assert.assertEquals(flags, r.getFlags());
-        Assert.assertEquals(iterations, r.getIterations());
-        Assert.assertEquals(salt, r.getSalt());
+        Assert.assertEquals(mailbox, r.getMailbox());
+        Assert.assertEquals(domain, r.getDomain());
 
         try {
-            new NSEC3PARAMRecord(null, STD_CLASS, STD_TTL, algorithm,
-                    flags, iterations, salt);
+            new RPRecord(null, STD_CLASS, STD_TTL, mailbox, domain);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new NSEC3PARAMRecord(STD_NAME, STD_CLASS, STD_TTL, null,
-                    flags, iterations, salt);
+            new RPRecord(STD_NAME, STD_CLASS, STD_TTL, null, domain);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new NSEC3PARAMRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm,
-                    flags, iterations, null);
+            new RPRecord(STD_NAME, STD_CLASS, STD_TTL, mailbox, null);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected

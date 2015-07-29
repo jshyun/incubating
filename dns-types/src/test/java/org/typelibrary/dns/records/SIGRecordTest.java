@@ -52,6 +52,51 @@ public class SIGRecordTest extends AbstractRecordTest {
         Assert.assertEquals(signer, r.getSigner());
         Assert.assertEquals(publicKey, r.getPublicKey());
 
+        try {
+            new SIGRecord(null, STD_CLASS, STD_TTL, typeCovered,
+                    algorithm, labels, originalTtl, signatureExpiration, signatureInception,
+                    keyTag, signer, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new SIGRecord(STD_NAME, STD_CLASS, STD_TTL, null,
+                    algorithm, labels, originalTtl, signatureExpiration, signatureInception,
+                    keyTag, signer, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new SIGRecord(STD_NAME, STD_CLASS, STD_TTL, typeCovered,
+                    null, labels, originalTtl, signatureExpiration, signatureInception,
+                    keyTag, signer, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new SIGRecord(STD_NAME, STD_CLASS, STD_TTL, typeCovered,
+                    algorithm, labels, originalTtl, signatureExpiration, signatureInception,
+                    keyTag, null, publicKey);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
+        try {
+            new SIGRecord(STD_NAME, STD_CLASS, STD_TTL, typeCovered,
+                    algorithm, labels, originalTtl, signatureExpiration, signatureInception,
+                    keyTag, signer, null);
+            Assert.fail("Expected IllegalArgumentException.");
+        } catch (IllegalArgumentException e) {
+            // Expected
+        }
+
     }
 
 }

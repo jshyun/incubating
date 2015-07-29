@@ -18,46 +18,37 @@ package org.typelibrary.dns.records;
 import org.junit.Assert;
 import org.junit.Test;
 import org.typelibrary.binarystrings.ByteString;
-import org.typelibrary.dns.Algorithm;
 
-public class NSEC3PARAMRecordTest extends AbstractRecordTest {
+public class TLSARecordTest extends AbstractRecordTest {
 
     @Test 
     public void testBasic() {
 
-        final Algorithm algorithm = Algorithm.DSA;
-        final byte flags = 1;
-        final short iterations = 2;
-        final ByteString salt = ByteString.from(1, 2, 3);
+        final byte certUsage = 1;
+        final byte selector = 2;
+        final byte matchingType = 3;
+        final ByteString data = ByteString.from(1, 2, 3);
         
-        NSEC3PARAMRecord r = new NSEC3PARAMRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm,
-                flags, iterations, salt);
+        TLSARecord r = new TLSARecord(STD_NAME, STD_CLASS, STD_TTL, certUsage, selector, matchingType,
+                data);
         assertBaseRecord(STD_NAME, STD_CLASS, STD_TTL, r);
         
-        Assert.assertEquals(algorithm, r.getAlgorithm());
-        Assert.assertEquals(flags, r.getFlags());
-        Assert.assertEquals(iterations, r.getIterations());
-        Assert.assertEquals(salt, r.getSalt());
+        Assert.assertEquals(certUsage, r.getCertUsage());
+        Assert.assertEquals(selector, r.getSelector());
+        Assert.assertEquals(matchingType, r.getMatchingType());
+        Assert.assertEquals(data, r.getData());
 
         try {
-            new NSEC3PARAMRecord(null, STD_CLASS, STD_TTL, algorithm,
-                    flags, iterations, salt);
+            new TLSARecord(null, STD_CLASS, STD_TTL, certUsage, selector, matchingType,
+                    data);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
         }
 
         try {
-            new NSEC3PARAMRecord(STD_NAME, STD_CLASS, STD_TTL, null,
-                    flags, iterations, salt);
-            Assert.fail("Expected IllegalArgumentException.");
-        } catch (IllegalArgumentException e) {
-            // Expected
-        }
-
-        try {
-            new NSEC3PARAMRecord(STD_NAME, STD_CLASS, STD_TTL, algorithm,
-                    flags, iterations, null);
+            new TLSARecord(STD_NAME, STD_CLASS, STD_TTL, certUsage, selector, matchingType,
+                    null);
             Assert.fail("Expected IllegalArgumentException.");
         } catch (IllegalArgumentException e) {
             // Expected
