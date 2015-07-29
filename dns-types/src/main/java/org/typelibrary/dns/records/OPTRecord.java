@@ -44,26 +44,58 @@ public final class OPTRecord extends Record {
     }
 
     public static final class Option {
+        
         private final short code;
-        private final short length;
         private final ByteString data;
-        public Option(short code, short length, ByteString data) {
+        
+        public Option(short code, ByteString data) {
+            if (data == null)
+                throw new IllegalArgumentException("Option cannot be null"); 
+            if (data.length() > 65535)
+                throw new IllegalArgumentException("Option cannot be null"); 
             this.code = code;
-            this.length = length;
             this.data = data;
         }
+
         public short getCode() {
             return code;
         }
-        public short getLength() {
-            return length;
-        }
+
         public ByteString getData() {
             return data;
         }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + code;
+            result = prime * result + data.hashCode();
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            Option other = (Option) obj;
+            if (code != other.code)
+                return false;
+            if (data == null) {
+                if (other.data != null)
+                    return false;
+            } else if (!data.equals(other.data))
+                return false;
+            return true;
+        }
+
         @Override
         public String toString() {
-            return "code=" + code + ", length=" + length + ", data=" + data;
+            return "code=" + code + ", data=" + data;
         }
     }
 

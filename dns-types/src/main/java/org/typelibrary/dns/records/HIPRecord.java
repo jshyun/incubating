@@ -27,40 +27,32 @@ import org.typelibrary.dns.RecordType;
 
 public final class HIPRecord extends Record {
 
-    private final byte hitLength;
     private final PublicKeyAlgorithm algorithm;
-    private final short pkLength;
     private final ByteString hit;
     private final ByteString publicKey;
     private final List<Name> rendezvousServers;
 
-    public HIPRecord(Name name, short recordClass, int timeToLive, byte hitLength, PublicKeyAlgorithm algorithm,
-            short pkLength, ByteString hit, ByteString publicKey, List<Name> rendezvousServers) {
+    public HIPRecord(Name name, short recordClass, int timeToLive, PublicKeyAlgorithm algorithm,
+            ByteString hit, ByteString publicKey, List<Name> rendezvousServers) {
         super(name, RecordType.HIP, recordClass, timeToLive);
         if (hit == null)
             throw new IllegalArgumentException("Hit cannot be null.");
+        if (hit.length() > 255)
+            throw new IllegalArgumentException("Hit cannot be > 255 bytes.");
         if (publicKey == null)
             throw new IllegalArgumentException("Public key cannot be null.");
+        if (publicKey.length() > 65535)
+            throw new IllegalArgumentException("Public key cannot be > 65535 bytes.");
         if (rendezvousServers == null)
             throw new IllegalArgumentException("Rendezvous servers list cannot be null.");
-        this.hitLength = hitLength;
         this.algorithm = algorithm;
-        this.pkLength = pkLength;
         this.hit = hit;
         this.publicKey = publicKey;
         this.rendezvousServers = Collections.unmodifiableList(new ArrayList<Name>(rendezvousServers));
     }
 
-    public byte getHitLength() {
-        return hitLength;
-    }
-
     public PublicKeyAlgorithm getAlgorithm() {
         return algorithm;
-    }
-
-    public short getPkLength() {
-        return pkLength;
     }
 
     public ByteString getHit() {
@@ -77,9 +69,9 @@ public final class HIPRecord extends Record {
 
     @Override
     public String toString() {
-        return super.toString() + ", hitLength=" + hitLength + ", algorithm=" + algorithm + ", pkLength="
-                + pkLength + ", hit=" + hit + ", publicKey=" + publicKey + ", rendezvousServers="
-                + rendezvousServers + "]";
+        return super.toString() + ", algorithm=" + algorithm 
+                + ", hit=" + hit + ", publicKey=" + publicKey + ", rendezvousServers="
+                + rendezvousServers;
     }
 
 }

@@ -25,15 +25,13 @@ public final class TSIGRecord extends Record {
     private final Name algorithm;
     private final long timeSigned;
     private final short fudge;
-    private final short macSize;
     private final ByteString mac;
     private final short originalId;
-    private final short otherLen;
     private final ByteString otherData;
 
     public TSIGRecord(Name name, short recordClass, int timeToLive, Name algorithm,
-            long timeSigned, short fudge, short macSize, ByteString mac, short originalId,
-            short otherLen, ByteString otherData) {
+            long timeSigned, short fudge, ByteString mac, short originalId,
+            ByteString otherData) {
         super(name, RecordType.TSIG, recordClass, timeToLive);
         if (algorithm == null)
             throw new IllegalArgumentException("Algorithm cannot be null.");
@@ -41,15 +39,17 @@ public final class TSIGRecord extends Record {
             throw new IllegalArgumentException("Time signed must be a 48 bit value.");
         if (mac == null)
             throw new IllegalArgumentException("Mac cannot be null.");
+        if (mac.length() > 255)
+            throw new IllegalArgumentException("Mac cannot be > 65535 bytes.");
         if (otherData == null)
             throw new IllegalArgumentException("Other data cannot be null.");
+        if (otherData.length() > 255)
+            throw new IllegalArgumentException("Other data cannot be > 65535 bytes.");
         this.algorithm = algorithm;
         this.timeSigned = timeSigned;
         this.fudge = fudge;
-        this.macSize = macSize;
         this.mac = mac;
         this.originalId = originalId;
-        this.otherLen = otherLen;
         this.otherData = otherData;
     }
 
@@ -65,20 +65,12 @@ public final class TSIGRecord extends Record {
         return fudge;
     }
 
-    public short getMacSize() {
-        return macSize;
-    }
-
     public ByteString getMac() {
         return mac;
     }
 
     public short getOriginalId() {
         return originalId;
-    }
-
-    public short getOtherLen() {
-        return otherLen;
     }
 
     public ByteString getOtherData() {
@@ -88,8 +80,8 @@ public final class TSIGRecord extends Record {
     @Override
     public String toString() {
         return super.toString() + ", algorithm=" + algorithm + ", timeSigned=" + timeSigned
-                + ", fudge=" + fudge + ", macSize=" + macSize + ", mac=" + mac + ", originalId="
-                + originalId + ", otherLen=" + otherLen + ", otherData=" + otherData + "]";
+                + ", fudge=" + fudge + ", mac=" + mac + ", originalId="
+                + originalId + ", otherData=" + otherData + "]";
     }
 
 }

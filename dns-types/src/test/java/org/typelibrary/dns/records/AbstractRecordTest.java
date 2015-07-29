@@ -15,6 +15,8 @@
  */
 package org.typelibrary.dns.records;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
@@ -48,4 +50,13 @@ public class AbstractRecordTest {
         }
         return new ByteString(array);
     }
+    
+    protected static InetAddress getByAddress(byte[] address) {
+        try {
+            return InetAddress.getByAddress(address);
+        } catch (UnknownHostException e) {
+            throw new IllegalStateException();
+        }
+    }
+
 }

@@ -45,20 +45,20 @@ public final class APLRecord extends Record {
     }
 
     public static class APItem {
+        
         private final short addressFamily;
         private final byte prefix;
         private final boolean negate;
-        private final byte afdLength;
         private final ByteString afdPart;
 
-        public APItem(short addressFamily, byte prefix, boolean negate, byte afdLength,
-                ByteString afdPart) {
+        public APItem(short addressFamily, byte prefix, boolean negate, ByteString afdPart) {
             if (afdPart == null)
                 throw new IllegalArgumentException("AFD Part cannot be null.");
+            if (afdPart.length() > 127)
+                throw new IllegalArgumentException("AFD Part cannot be > 127 bytes.");
             this.addressFamily = addressFamily;
             this.prefix = prefix;
             this.negate = negate;
-            this.afdLength = afdLength;
             this.afdPart = afdPart;
         }
 
@@ -74,10 +74,6 @@ public final class APLRecord extends Record {
             return negate;
         }
 
-        public byte getAfdLength() {
-            return afdLength;
-        }
-
         public ByteString getAfdPart() {
             return afdPart;
         }
@@ -87,8 +83,7 @@ public final class APLRecord extends Record {
             final int prime = 31;
             int result = 1;
             result = prime * result + addressFamily;
-            result = prime * result + afdLength;
-            result = prime * result + ((afdPart == null) ? 0 : afdPart.hashCode());
+            result = prime * result + afdPart.hashCode();
             result = prime * result + (negate ? 1231 : 1237);
             result = prime * result + prefix;
             return result;
@@ -105,8 +100,6 @@ public final class APLRecord extends Record {
             APItem other = (APItem) obj;
             if (addressFamily != other.addressFamily)
                 return false;
-            if (afdLength != other.afdLength)
-                return false;
             if (afdPart == null) {
                 if (other.afdPart != null)
                     return false;
@@ -122,7 +115,7 @@ public final class APLRecord extends Record {
         @Override
         public String toString() {
             return "addressFamily=" + addressFamily + ", prefix=" + prefix + ", negate=" + negate
-                    + ", afdLength=" + afdLength + ", afdPart=" + afdPart;
+                    + ", afdPart=" + afdPart;
         }
     }
 }
