@@ -21,6 +21,32 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * An NSEC3 record.
+ *  
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc5155">RFC 5155</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>50</td></tr>
+ * <tr><td>Meaning:</td><td>An NSEC</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>Hash Algorithm</td><td>8-bits</td><td>Hash Algorithm</td></tr>
+ * <tr><td>Flags</td><td>8-bits</td><td>Flags</td></tr>
+ * <tr><td>Iterations</td><td>16-bits</td><td>Iterations</td></tr>
+ * <tr><td>Salt</td><td>{octets}*</td><td>Salt</td></tr>
+ * <tr><td>Next Hashed Owner Name</td><td>{octets}*</td><td>Next Hashed Owner Name</td></tr>
+ * <tr><td>Type Bitmaps</td><td>{octets}*</td><td>Type bit maps.</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class NSEC3Record extends Record {
 
     private final Algorithm algorithm;

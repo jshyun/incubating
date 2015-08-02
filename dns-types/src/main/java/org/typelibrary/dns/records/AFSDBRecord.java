@@ -19,6 +19,28 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * An AFSDB record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc1183">RFC 1183</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>18</td></tr>
+ * <tr><td>Meaning:</td><td>An AFSDB record.</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>subtype</td><td>int16</td><td>Mailbox of the responsible person.</td></tr>
+ * <tr><td>hostname</td><td>domain-name</td><td>A host that has a server for the cell named by the owner name of the RR.</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class AFSDBRecord extends Record {
 
     private final short subtype;

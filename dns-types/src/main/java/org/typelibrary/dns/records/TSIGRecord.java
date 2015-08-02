@@ -20,6 +20,33 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * A Transaction Signature record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc2845">RFC 2845</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>250</td></tr>
+ * <tr><td>Meaning:</td><td>Transaction Signature</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>Algorithm</td><td>domain-name</td><td>Name of the algorithm in domain name syntax</td></tr>
+ * <tr><td>time signed</td><td>uint48</td><td></td></tr>
+ * <tr><td>fudge</td><td>uint16</td><td></td></tr>
+ * <tr><td>mac</td><td>{octets}*</td><td>MAC.</td></tr>
+ * <tr><td>original id</td><td>uint16</td><td></td></tr>
+ * <tr><td>error</td><td>uint16</td><td></td></tr>
+ * <tr><td>other data</td><td>{octets}*</td><td>Other data.</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class TSIGRecord extends Record {
 
     private final Name algorithm;

@@ -20,6 +20,28 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * A Host Information record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://www.ietf.org/rfc/rfc1035.txt">RFC 1035</a></td></tr>
+ * <tr><td>Status:</td><td>Not Common</td></tr>
+ * <tr><td>TYPE:</td><td>12</td></tr>
+ * <tr><td>Meaning:</td><td>Host Information</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>CPU</td><td>character-string</td><td>The CPU type</td></tr>
+ * <tr><td>OS</td><td>character-string</td><td>The operating system type</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public class HINFORecord extends Record {
 
     private final ByteString cpu;

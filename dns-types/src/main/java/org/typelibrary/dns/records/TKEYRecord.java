@@ -20,6 +20,33 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * A Transaction Key record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc2930">RFC 2930</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>249</td></tr>
+ * <tr><td>Meaning:</td><td>Transaction Key</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>Algorithm</td><td>domain-name</td><td>Name of the algorithm in domain name syntax</td></tr>
+ * <tr><td>inception</td><td>uint32</td><td></td></tr>
+ * <tr><td>expiration</td><td>uint32</td><td></td></tr>
+ * <tr><td>mode</td><td>uint16</td><td></td></tr>
+ * <tr><td>error</td><td>uint16</td><td></td></tr>
+ * <tr><td>key</td><td>{octets}*</td><td>Key.</td></tr>
+ * <tr><td>other data</td><td>{octets}*</td><td>Other data.</td></tr>
+ * </table>
+ * </p>
+ * 
+ */
 public final class TKEYRecord extends Record {
 
     private final Name algorithm;

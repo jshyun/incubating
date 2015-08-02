@@ -19,6 +19,30 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * A Services record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc2782">RFC 2782</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>33</td></tr>
+ * <tr><td>Meaning:</td><td>Location of services</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>priority</td><td>uint16</td><td></td></tr>
+ * <tr><td>weight</td><td>uint16</td><td></td></tr>
+ * <tr><td>port</td><td>uint16</td><td></td></tr>
+ * <tr><td>target</td><td>domain-name</td><td>Target</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class SRVRecord extends Record {
 
     private final short priority;

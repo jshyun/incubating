@@ -24,6 +24,27 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * An Option record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc6891">RFC 6891</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>41</td></tr>
+ * <tr><td>Meaning:</td><td>Option</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>OPTIONS</td><td>{option}*</td><td></td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class OPTRecord extends Record {
 
     private final List<Option> options;
@@ -43,6 +64,28 @@ public final class OPTRecord extends Record {
         return super.toString() + ", options=" + options;
     }
 
+    /**
+     * An Option.
+     * 
+     * <p>
+     * <table style="width: auto" summary="">
+     * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc6891">RFC 6891</a></td></tr>
+     * <tr><td>Status:</td><td>Current</td></tr>
+     * <tr><td>TYPE:</td><td>N/A</td></tr>
+     * <tr><td>Meaning:</td><td>Option</td></tr>
+     * </table>
+     * </p>
+     * 
+     * <p>
+     * Fields:
+     * <table style="width: auto" summary="">
+     * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+     * <tr><td>code</td><td>16-bits</td><td></td></tr>
+     * <tr><td>data</td><td>{octets}*</td><td></td></tr>
+     * </table>
+     * </p>
+     *
+     */
     public static final class Option {
         
         private final short code;

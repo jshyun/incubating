@@ -24,6 +24,27 @@ import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 import org.typelibrary.dns.records.Utils.IP6Formatter;
 
+/**
+ * An IPv6 Host Address record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc3596">RFC 3596</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>28</td></tr>
+ * <tr><td>Meaning:</td><td>Host Address</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>ADDRESS</td><td>128-bits</td><td>An IPv6 Internet Address</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class AAAARecord extends Record {
 
     private final ByteString address;

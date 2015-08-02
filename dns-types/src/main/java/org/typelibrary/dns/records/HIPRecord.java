@@ -25,6 +25,30 @@ import org.typelibrary.dns.PublicKeyAlgorithm;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * A Host Identity Protocol record.
+ *  
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc5205">RFC 5205</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>55</td></tr>
+ * <tr><td>Meaning:</td><td>Host identity Protocol</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>PK Algorithm</td><td>8-bits</td><td>Public Key Algorithm</td></tr>
+ * <tr><td>HIT</td><td>{octets}*</td><td>HIT</td></tr>
+ * <tr><td>Public Key</td><td>{octets}*</td><td>The public key.</td></tr>
+ * <tr><td>Rendezvous Servers</td><td>{domain-name}*</td><td>One or more domain names.</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class HIPRecord extends Record {
 
     private final PublicKeyAlgorithm algorithm;

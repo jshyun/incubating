@@ -20,6 +20,29 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * An SSH Fingerprint record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="https://tools.ietf.org/html/rfc4255">RFC 4255</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>44</td></tr>
+ * <tr><td>Meaning:</td><td>SSH Fingerprint</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>algorithm</td><td>8-bits</td><td></td></tr>
+ * <tr><td>fp type</td><td>8-bits</td><td></td></tr>
+ * <tr><td>Fingerprint</td><td>{octets}*</td><td></td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class SSHFPRecord extends Record {
 
     private final byte algorithm;

@@ -18,6 +18,7 @@ package org.typelibrary.dns;
 public final class QClass {
 
     public static final QClass IN    = new QClass(1,   "IN");
+    public static final QClass CS    = new QClass(2,   "CS");
     public static final QClass CH    = new QClass(3,   "CH");
     public static final QClass HS    = new QClass(4,   "HS");
     public static final QClass NONE  = new QClass(254, "NONE");
@@ -80,6 +81,7 @@ public final class QClass {
 
         switch(value) {
         case 1: return IN;
+        case 2: return CS;
         case 3: return CH;
         case 4: return HS;
         case 254: return NONE;

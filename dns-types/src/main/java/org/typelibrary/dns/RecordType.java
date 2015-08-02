@@ -23,6 +23,10 @@ public final class RecordType {
 	public static final RecordType MF         = new RecordType(4, "MF");
 	public static final RecordType CNAME      = new RecordType(5, "CNAME");
 	public static final RecordType SOA        = new RecordType(6, "SOA");
+	public static final RecordType MB         = new RecordType(7, "MB");
+	public static final RecordType MG         = new RecordType(8, "MG");
+	public static final RecordType MR         = new RecordType(9, "MR");
+	public static final RecordType NULL       = new RecordType(10, "NULL");
 	public static final RecordType WKS        = new RecordType(11, "WKS");
 	public static final RecordType PTR        = new RecordType(12, "PTR");
 	public static final RecordType HINFO      = new RecordType(13, "HINFO");
@@ -153,6 +157,10 @@ public final class RecordType {
 		    case 4: return MF;
 		    case 5: return CNAME;
 		    case 6: return SOA;
+		    case 7: return MB;
+		    case 8: return MG;
+		    case 9: return MR;
+		    case 10: return NULL;
 		    case 11: return WKS;
 		    case 12: return PTR;
 		    case 13: return HINFO;

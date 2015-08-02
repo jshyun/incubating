@@ -19,6 +19,27 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * A domain name pointer.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://www.ietf.org/rfc/rfc1035.txt">RFC 1035</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>12</td></tr>
+ * <tr><td>Meaning:</td><td>Domain Name Pointer</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>PTRDNAME</td><td>domain-name</td><td>Some location in the domain name space.</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class PTRRecord extends Record {
 
     private final Name domainName;

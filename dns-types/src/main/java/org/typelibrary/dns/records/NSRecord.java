@@ -19,6 +19,27 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * An authoritative name server record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://www.ietf.org/rfc/rfc1035.txt">RFC 1035</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>2</td></tr>
+ * <tr><td>Meaning:</td><td>Authoritative Name Server</td></tr>
+ * </table>
+ * </p>
+ *
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>NSDNAME</td><td>domain-name</td><td>A host which should be authoritative for the specified class and domain.</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class NSRecord extends Record {
 
     private final Name nameServer;

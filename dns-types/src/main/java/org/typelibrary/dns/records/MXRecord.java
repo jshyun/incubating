@@ -19,6 +19,28 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * A mail exchange record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://www.ietf.org/rfc/rfc1035.txt">RFC 1035</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>15</td></tr>
+ * <tr><td>Meaning:</td><td>Mail Exchange</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>PREFERENCE</td><td>uint16</td><td>The preference given to this record among others at the same owner. Lower values are preferred.</td></tr>
+ * <tr><td>EXCHANGE</td><td>domain-name</td><td>A host willing to act as a mail exchange for the owner name.</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class MXRecord extends Record {
 
     private final short preference;

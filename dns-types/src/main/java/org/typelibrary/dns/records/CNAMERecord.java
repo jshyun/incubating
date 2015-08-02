@@ -19,6 +19,26 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * The canonical name for an alias.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://www.ietf.org/rfc/rfc1035.txt">RFC 1035</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>5</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>CNAME</td><td>domain-name</td><td>A domain name which specifies the canonical or primary name for the owner. The owner name is an alias.</td></tr>
+ * </table>
+ * </p>
+ * 
+ */
 public final class CNAMERecord extends Record {
 
     private final Name cname;

@@ -20,6 +20,28 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * An NSEC record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc4034">RFC 4034</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>47</td></tr>
+ * <tr><td>Meaning:</td><td>A NSEC record</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>Next Domain Name</td><td>Name</td><td>Next owner name (in the canonical ordering of the zone) that has authoritative data or contains a delegation point NS RRset</td></tr>
+ * <tr><td>Type Bit Maps</td><td>Name</td><td>The RRset types that exist at the NSEC RR's owner name</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class NSECRecord extends Record {
 
     private final Name nextDomainName;

@@ -19,6 +19,33 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * A start of zone authority record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://www.ietf.org/rfc/rfc1035.txt">RFC 1035</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>6</td></tr>
+ * <tr><td>Meaning:</td><td>Start of Zone Authority</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>MNAME</td><td>domain-name</td><td>The name server that was the original or primary source of data for this zone.</td></tr>
+ * <tr><td>RNAME</td><td>domain-name</td><td>The mailbox of the person responsible for this zone.</td></tr>
+ * <tr><td>SERIAL</td><td>uint32</td><td>Version number of the original copy of the zone.</td></tr>
+ * <tr><td>REFRESH</td><td>int32</td><td>Time interval before the zone should be refreshed.</td></tr>
+ * <tr><td>RETRY</td><td>int32</td><td>Time interval that should elapse before a failed refresh should be retried.</td></tr>
+ * <tr><td>EXPIRE</td><td>int32</td><td>Time value that specifies the upper limit on the time interval that can elapse before the zone is no longer authoritative.</td></tr>
+ * <tr><td>MINIMUM</td><td>uint32</td><td>TTL field that should be exported with any RR from this zone.</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class SOARecord extends Record {
 
     private final Name masterName;

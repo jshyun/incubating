@@ -20,6 +20,32 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * A NAPTR record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc3403">RFC 3403</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>35</td></tr>
+ * <tr><td>Meaning:</td><td>A NAPTR record</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>order</td><td>uint16</td><td></td></tr>
+ * <tr><td>preference</td><td>uint16</td><td></td></tr>
+ * <tr><td>flags</td><td>character-string</td><td>Flags</td></tr>
+ * <tr><td>services</td><td>character-string</td><td>Services</td></tr>
+ * <tr><td>regexp</td><td>character-string</td><td>Regexp</td></tr>
+ * <tr><td>replacement</td><td>domain-name</td><td>Next to query</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class NAPTRRecord extends Record {
 
     private final short order;

@@ -22,6 +22,30 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * A DNSSEC Lookaside Validation record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc4431">RFC 4431</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>32769</td></tr>
+ * <tr><td>Meaning:</td><td>DNSSEC Lookaside Validation</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>Key Tag</td><td>8-bits</td><td>Key Tag.</td></tr>
+ * <tr><td>Algorithm</td><td>8-bits</td><td>The cryptographic algorithm.</td></tr>
+ * <tr><td>Digest Type</td><td>8-bits</td><td>Digest type.</td></tr>
+ * <tr><td>Digest</td><td>{octets}*</td><td>Digest.</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class DLVRecord extends Record {
 
     private final short keyTag;

@@ -19,6 +19,33 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * A Location record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc1876">RFC 1876</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>29</td></tr>
+ * <tr><td>Meaning:</td><td>Transaction Key</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>VERSION</td><td>uint8</td><td></td></tr>
+ * <tr><td>SIZE</td><td>8-bits</td><td></td></tr>
+ * <tr><td>HORIZ PRE</td><td>uint8</td><td>Horizontal Precision</td></tr>
+ * <tr><td>VERT PRE</td><td>uint8</td><td>Vertical Precision</td></tr>
+ * <tr><td>LATITUTE</td><td>uint32</td><td></td></tr>
+ * <tr><td>LONGITUDE</td><td>uint32</td><td></td></tr>
+ * <tr><td>ALTITUDE</td><td>uint32</td><td></td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class LOCRecord extends Record {
 
     private final byte version;

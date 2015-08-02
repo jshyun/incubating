@@ -50,7 +50,7 @@ public class RRSIGRecordTest extends AbstractRecordTest {
         Assert.assertEquals(signatureInception, r.getSignatureInception());
         Assert.assertEquals(keyTag, r.getKeyTag());
         Assert.assertEquals(signer, r.getSigner());
-        Assert.assertEquals(publicKey, r.getPublicKey());
+        Assert.assertEquals(publicKey, r.getSignature());
         
         try {
             new RRSIGRecord(null, STD_CLASS, STD_TTL, typeCovered,

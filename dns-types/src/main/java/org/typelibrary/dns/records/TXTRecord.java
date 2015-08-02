@@ -24,6 +24,27 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * A text strings record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://www.ietf.org/rfc/rfc1035.txt">RFC 1035</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>16</td></tr>
+ * <tr><td>Meaning:</td><td>Text Strings</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>TXT-DATA</td><td>{character-string}+</td><td>One or more character strings.</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class TXTRecord extends Record {
 
     private final List<ByteString> text;

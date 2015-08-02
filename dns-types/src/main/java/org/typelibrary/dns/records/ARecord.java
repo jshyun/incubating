@@ -24,6 +24,27 @@ import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 import org.typelibrary.dns.records.Utils.IP4Formatter;
 
+/**
+ * An IPv4 Host Address record.
+ * 
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://www.ietf.org/rfc/rfc1035.txt">RFC 1035</a></td></tr>
+ * <tr><td>Status:</td><td>Current</td></tr>
+ * <tr><td>TYPE:</td><td>1</td></tr>
+ * <tr><td>Meaning:</td><td>Host Address</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>ADDRESS</td><td>32-bits</td><td>An IPv4 Internet Address</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class ARecord extends Record {
 
     private final ByteString address;

@@ -24,6 +24,27 @@ import org.typelibrary.dns.Name;
 import org.typelibrary.dns.Record;
 import org.typelibrary.dns.RecordType;
 
+/**
+ * An Address Prefix List record.
+ *  
+ * <p>
+ * <table style="width: auto" summary="">
+ * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc3123">RFC 3123</a></td></tr>
+ * <tr><td>Status:</td><td>Experimental</td></tr>
+ * <tr><td>TYPE:</td><td>42</td></tr>
+ * <tr><td>Meaning:</td><td>Address Prefix List</td></tr>
+ * </table>
+ * </p>
+ * 
+ * <p>
+ * Fields:
+ * <table style="width: auto" summary="">
+ * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+ * <tr><td>Items</td><td>{apitem}*</td><td>Zero or more AP items.</td></tr>
+ * </table>
+ * </p>
+ *
+ */
 public final class APLRecord extends Record {
 
     private final List<APItem> items;
@@ -44,6 +65,30 @@ public final class APLRecord extends Record {
         return super.toString() + ", items=" + items;
     }
 
+    /**
+     * An Address Prefix List item.
+     *  
+     * <p>
+     * <table style="width: auto" summary="">
+     * <tr><td>Defined in:</td><td><a href="http://tools.ietf.org/html/rfc3123">RFC 3123</a></td></tr>
+     * <tr><td>Status:</td><td>Experimental</td></tr>
+     * <tr><td>TYPE:</td><td>N/A</td></tr>
+     * <tr><td>Meaning:</td><td>Address Prefix Item</td></tr>
+     * </table>
+     * </p>
+     * 
+     * <p>
+     * Fields:
+     * <table style="width: auto" summary="">
+     * <tr><td>Name</td><td>Type</td><td>Description</td></tr>
+     * <tr><td>ADDRESSFAMILY</td><td>16-bits</td><td>Address family.</td></tr>
+     * <tr><td>PREFIX</td><td>8-bits</td><td>Prefix.</td></tr>
+     * <tr><td>N</td><td>boolean</td><td>Negation flag.</td></tr>
+     * <tr><td>AFDPART</td><td>{octets}*</td><td>Address Family Dependent Part.</td></tr>
+     * </table>
+     * </p>
+     *
+     */
     public static class APItem {
         
         private final short addressFamily;
