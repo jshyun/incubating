@@ -38,10 +38,10 @@ public class RawRecordTest extends AbstractRecordTest {
 
     @Test
     public void testEmpty() {
-        RawRecord r = new RawRecord(STD_NAME, STD_TYPE, STD_CLASS, STD_TTL, ByteString.EMPTY_STRING);
+        RawRecord r = new RawRecord(STD_NAME, STD_TYPE, STD_CLASS, STD_TTL, ByteString.EMPTY);
         assertBaseRecord(STD_NAME, STD_CLASS, STD_TTL, r);
         ByteString buffer = r.getData();
-        Assert.assertEquals(ByteString.EMPTY_STRING, buffer);
+        Assert.assertEquals(ByteString.EMPTY, buffer);
         Assert.assertEquals(0, buffer.length());
     }
     

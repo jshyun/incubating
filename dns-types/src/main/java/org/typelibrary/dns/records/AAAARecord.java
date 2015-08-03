@@ -68,7 +68,7 @@ public final class AAAARecord extends Record {
             // Should never happen since we check address length in constructor
             throw new IllegalStateException(
                     "Unexpected error creating Inet4Address from: hostname=" + hostname
-                            + ", address=" + address.toArrayString());
+                            + ", address=" + address.toFullString());
         }
     }
     
